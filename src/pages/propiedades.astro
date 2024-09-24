@@ -1,10 +1,25 @@
 ---
+
 import Layout from "@/layouts/Layout.astro"
+
+import { propertiesListStore } from '@/components/PropertiesList/store';
+import  PropertiesListToggle from '@/components/PropertiesList/PropertiesListToggle';
+import  PropertiesList from '@/components/PropertiesList/PropertiesList';
+
+
+
+const isGridView = !propertiesListStore.get();
+
 ---
 
 <Layout>
-  <h1>
-
-    Propiedades
-  </h1>
+  <div class="container mx-auto py-8">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold">Real Estate Listings</h1>
+      <PropertiesListToggle client:load />
+    </div>
+    
+      <PropertiesList client:load />
+    
+  </div>
 </Layout>

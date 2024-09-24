@@ -1,0 +1,112 @@
+---
+import Layout from '@/layouts/Layout.astro'
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Bed, Bath, Square, MapPin, Phone, Mail } from "lucide-react"
+import ImageCarousel from '@/components/ImageCarousel.tsx'
+// import Mapa from "@/components/Mapa"
+
+const propiedad = {
+    id: "123",
+    title: "Lujoso Apartamento en el Centro",
+    description: "Un impresionante apartamento de 3 habitaciones en el corazón de la ciudad con vistas impresionantes.",
+    price: 750000,
+    currency: 'ARS',
+    habitaciones: 3,
+    banos: 2,
+    area: 139, // convertido a metros cuadrados
+    address: "Calle Principal 123, Ciudad, Estado 12345",
+    imagenes: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+    agente: {
+      nombre: "Ana García",
+      telefono: "+34 555 123 456",
+      email: "ana.garcia@inmobiliaria.com",
+    },
+    latitud: 40.7128,
+    longitud: -74.0060,
+  }
+
+---
+
+
+<Layout>
+  <div class="container mx-auto px-4 py-8 bg-gray-900 text-gray-100" >
+    <h1 class="text-3xl font-bold mb-6">{propiedad.title}</h1>
+    
+    {/* Carrusel de Imágenes */}
+    <ImageCarousel propiedad={propiedad} client:load  />
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {/* Detalles de la Propiedad */}
+      <Card className="bg-gray-800 border-gray-700 text-gray-100">
+        <CardHeader>
+          <CardTitle>Detalles de la Propiedad</CardTitle>
+          <CardDescription className="text-gray-400">{propiedad.address}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-2xl font-bold">{propiedad.price.toLocaleString('es-ES', { style: 'currency', currency: propiedad.currency })}</span>
+            <Badge variant="secondary">En Venta</Badge>
+          </div>
+          <p class="mb-4">{propiedad.description}</p>
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="flex items-center">
+              <Bed className="mr-2" />
+              <span>{propiedad.habitaciones} Habitaciones</span>
+            </div>
+            <div class="flex items-center">
+              <Bath className="mr-2" />
+              <span>{propiedad.banos} Baños</span>
+            </div>
+            <div class="flex items-center">
+              <Square className="mr-2" />
+              <span>{propiedad.area} m²</span>
+            </div>
+          </div>
+          <div class="border-t border-gray-700 pt-4">
+            <h3 class="font-semibold mb-2">Contactar al Agente</h3>
+            <p class="font-medium">{propiedad.agente.nombre}</p>
+            <div class="flex items-center mt-2">
+              <Phone className="mr-2" size={16} />
+              <span>{propiedad.agente.telefono}</span>
+            </div>
+            <div class="flex items-center mt-1">
+              <Mail className="mr-2" size={16} />
+              <span>{propiedad.agente.email}</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Mapa */}
+      <Card className="bg-gray-800 border-gray-700 text-gray-100">
+        <CardHeader>
+          <CardTitle>Ubicación</CardTitle>
+        </CardHeader>
+        <CardContent>
+           <!-- <div class="h-[400px] rounded-lg overflow-hidden">
+           <Mapa
+              centro={{ lat: propiedad.latitud, lng: propiedad.longitud }}
+              zoom={15}
+              marcadores={[{ lat: propiedad.latitud, lng: propiedad.longitud }]}
+            />
+          </div> -->
+          <div class="mt-4 flex items-center">
+            <MapPin className="mr-2" size={16} />
+            <span>{propiedad.address}</span>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+
+    <div class="mt-8 text-center">
+      <Button size="lg" variant="secondary">Programar una Visita</Button>
+    </div>
+  </div>
+</Layout>

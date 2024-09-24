@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { MapPin, Check } from "lucide-react"
+import PropiedadesData from "@/data/propiedades.json";
+
 import '@/styles/globals.css'
 
 type PropiedadType = {
@@ -17,45 +19,10 @@ type PropiedadType = {
   state?: string;
   price: string;
   currency: 'US' | 'ARS';
+  highlight: boolean;
 }
 
-const PROPIEDADES_DESTACADAS: PropiedadType[] = [{
-  id: "1",
-  title: 'Departamento 2 ambientes',
-  description: '',
-  address: 'Calle Principal',
-  addressNum: '123',
-  city: 'Neuquen Capital',
-  state: 'Neuquen',
-  price: "350000",
-  currency:'ARS'
-
-},
-{
-  id: "2",
-  title: 'Monoambiente',
-  address: 'Calle Principal',
-  description: '',
-  addressNum: '123',
-  city: 'Plottier',
-  state: 'Neuquen',
-  price: "350000",
-  currency:'ARS'
-
-}, 
-{
-  id: "3",
-  title: 'Casa 3 habitaciones',
-  address: 'Calle Principal',
-  description: '',
-  addressNum: '123',
-  city: 'Plottier',
-  state: 'Neuquen',
-  price: "350000",
-  currency:'ARS'
-
-}, 
-]
+const PROPIEDADES_DESTACADAS = PropiedadesData.filter(p=>p.highlight).splice(0,3) as PropiedadType[];
 
 ---
 
@@ -105,7 +72,7 @@ const PROPIEDADES_DESTACADAS: PropiedadType[] = [{
               </div>
             </CardContent>
             <CardFooter>
-              <Button class="w-full bg-blue-600 text-white hover:bg-blue-700">Ver Detalles</Button>
+              <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">Ver Detalles</Button>
             </CardFooter>
           </Card>
         ))}
