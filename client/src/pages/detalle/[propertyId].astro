@@ -1,57 +1,89 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import Layout from "@/layouts/Layout.astro";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Bed, Bath, Square, MapPin, Phone, Mail } from "lucide-react"
-import ImageCarousel from '@/components/ImageCarousel.tsx'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Bed, Bath, Square, MapPin, Phone, Mail } from "lucide-react";
+import ImageCarousel from "@/components/ImageCarousel.tsx";
+import { getPropertyByDocumentId } from "@/services/properties";
+import {
+  BlocksRenderer,
+  type BlocksContent,
+} from "@strapi/blocks-react-renderer";
+
 // import Mapa from "@/components/Mapa"
 
 const propiedad = {
-    id: "123",
-    title: "Lujoso Apartamento en el Centro",
-    description: "Un impresionante apartamento de 3 habitaciones en el corazón de la ciudad con vistas impresionantes.",
-    price: 750000,
-    currency: 'ARS',
-    habitaciones: 3,
-    banos: 2,
-    area: 139, // convertido a metros cuadrados
-    address: "Calle Principal 123, Ciudad, Estado 12345",
-    imagenes: [
-      "/placeholder.svg?height=400&width=600",
-      "/placeholder.svg?height=400&width=600",
-      "/placeholder.svg?height=400&width=600",
-    ],
-    agente: {
-      nombre: "Ana García",
-      telefono: "+34 555 123 456",
-      email: "ana.garcia@inmobiliaria.com",
-    },
-    latitud: 40.7128,
-    longitud: -74.0060,
-  }
+  id: "123",
+  title: "Lujoso Apartamento en el Centro",
+  description:
+    "Un impresionante apartamento de 3 habitaciones en el corazón de la ciudad con vistas impresionantes.",
+  price: 750000,
+  currency: "ARS",
+  habitaciones: 3,
+  banos: 2,
+  area: 139, // convertido a metros cuadrados
+  address: "Calle Principal 123, Ciudad, Estado 12345",
+  imagenes: [
+    "/placeholder.svg?height=400&width=600",
+    "/placeholder.svg?height=400&width=600",
+    "/placeholder.svg?height=400&width=600",
+  ],
+  agente: {
+    nombre: "Ana García",
+    telefono: "+34 555 123 456",
+    email: "ana.garcia@inmobiliaria.com",
+  },
+  latitud: 40.7128,
+  longitud: -74.006,
+};
 
+const { propertyId } = Astro.params;
+
+if (!propertyId) return Astro.redirect("/404");
+const propertyDetail = await getPropertyByDocumentId(propertyId);
+
+if (!propertyDetail) return Astro.redirect("/404");
+
+console.log(propertyDetail);
 ---
 
-
 <Layout>
-  <div class="container mx-auto px-4 py-8 bg-gray-900 text-gray-100" >
+  <div class="container mx-auto px-4 py-8 bg-gray-900 text-gray-100">
     <h1 class="text-3xl font-bold mb-6">{propiedad.title}</h1>
-    
-    {/* Carrusel de Imágenes */}
-    <ImageCarousel propiedad={propiedad} client:load  />
 
+    {/* Carrusel de Imágenes */}
+    <ImageCarousel propiedad={propiedad} client:load />
+    <h1>{propertyId}</h1>
     <div class="grid md:grid-cols-2 gap-8">
       {/* Detalles de la Propiedad */}
       <Card className="bg-gray-800 border-gray-700 text-gray-100">
         <CardHeader>
           <CardTitle>Detalles de la Propiedad</CardTitle>
-          <CardDescription className="text-gray-400">{propiedad.address}</CardDescription>
+          <CardDescription className="text-gray-400"
+            >{propiedad.address}
+            <BlocksRenderer
+              content={propertyDetail.description as BlocksContent}
+            />
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div class="flex justify-between items-center mb-4">
-            <span class="text-2xl font-bold">{propiedad.price.toLocaleString('es-ES', { style: 'currency', currency: propiedad.currency })}</span>
+            <span class="text-2xl font-bold"
+              >{
+                propiedad.price.toLocaleString("es-ES", {
+                  style: "currency",
+                  currency: propiedad.currency,
+                })
+              }</span
+            >
             <Badge variant="secondary">En Venta</Badge>
           </div>
           <p class="mb-4">{propiedad.description}</p>
@@ -90,7 +122,7 @@ const propiedad = {
           <CardTitle>Ubicación</CardTitle>
         </CardHeader>
         <CardContent>
-           <!-- <div class="h-[400px] rounded-lg overflow-hidden">
+          <!-- <div class="h-[400px] rounded-lg overflow-hidden">
            <Mapa
               centro={{ lat: propiedad.latitud, lng: propiedad.longitud }}
               zoom={15}

@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useStore } from "@nanostores/react";
+import { type PropiedadType } from "@/services/properties";
 
 const listings = [
   {
@@ -60,7 +61,11 @@ const listings = [
   },
 ];
 
-export default function PropertiesListToggle() {
+export default function PropertiesListToggle({
+  properties,
+}: {
+  properties: PropiedadType[];
+}) {
   const isGridView = useStore(propertiesListStore);
   // Mock data for real estate listings
 
@@ -70,7 +75,7 @@ export default function PropertiesListToggle() {
         isGridView ? "sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
       }`}
     >
-      {listings.map((listing) => (
+      {properties.map((listing) => (
         <Card key={listing.id} className={isGridView ? "" : "flex flex-row"}>
           <div className={`relative ${isGridView ? "h-48" : "h-full w-1/3"}`}>
             <img
@@ -86,12 +91,20 @@ export default function PropertiesListToggle() {
             <CardContent>
               <p className="text-2xl font-bold">{listing.price}</p>
               <p className="text-muted-foreground">
-                {listing.bedrooms} beds • {listing.bathrooms} baths •{" "}
-                {listing.sqft} sqft
+                {listing.rooms} beds • {listing.bathrooms} baths •{" "}
+                {listing.land_surface} mt2
               </p>
             </CardContent>
             <CardFooter>
-              <Button>View Details</Button>
+              <a
+                href={`/detalle/${listing.documentId}`}
+                className="
+                h-10 px-4 py-2
+                inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50
+                bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                View Details
+              </a>
             </CardFooter>
           </div>
         </Card>

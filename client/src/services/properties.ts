@@ -1,7 +1,9 @@
-type PropiedadType = {
+import { type BlocksContent } from "@strapi/blocks-react-renderer";
+export type PropiedadType = {
   id: string;
+  documentId: string;
   title: string;
-  description: string;
+  description: string | BlocksContent;
   address: string;
   addressNum: string;
   city?: string;
@@ -9,6 +11,10 @@ type PropiedadType = {
   price: string;
   currency: "US" | "ARS";
   highlight: boolean;
+  rooms: number;
+  bathrooms: number;
+  land_surface: number;
+  built_surface: number;
 };
 
 type StrapiResponse<T> = {
@@ -23,7 +29,13 @@ type StrapiResponse<T> = {
   };
 };
 
-export async function getFeaturedProperties() {
+export async function getListedProperties(): Promise<PropiedadType[]> {
+  const res = await fetch(`${import.meta.env.STRAPI_URL}/api/properties`);
+  const parsedResponse: StrapiResponse<PropiedadType[]> = await res.json();
+  return parsedResponse.data;
+}
+
+export async function getFeaturedProperties(): Promise<PropiedadType[]> {
   const res = await fetch(
     `${
       import.meta.env.STRAPI_URL
@@ -32,11 +44,12 @@ export async function getFeaturedProperties() {
   const parsedResponse: StrapiResponse<PropiedadType[]> = await res.json();
   return parsedResponse.data;
 }
-
-export async function getListedProperties() {
+export async function getPropertyByDocumentId(
+  documentId: string
+): Promise<PropiedadType> {
   const res = await fetch(
-    `${import.meta.env.STRAPI_URL}/api/properties?sort=createdAt`
+    `${import.meta.env.STRAPI_URL}/api/properties/${documentId}`
   );
-  const parsedResponse: StrapiResponse<PropiedadType[]> = await res.json();
+  const parsedResponse: StrapiResponse<PropiedadType> = await res.json();
   return parsedResponse.data;
 }

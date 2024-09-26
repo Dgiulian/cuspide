@@ -1,15 +1,14 @@
 ---
+import Layout from "@/layouts/Layout.astro";
 
-import Layout from "@/layouts/Layout.astro"
-
-import { propertiesListStore } from '@/components/PropertiesList/store';
-import  PropertiesListToggle from '@/components/PropertiesList/PropertiesListToggle';
-import  PropertiesList from '@/components/PropertiesList/PropertiesList';
-
-
+import { propertiesListStore } from "@/components/PropertiesList/store";
+import PropertiesListToggle from "@/components/PropertiesList/PropertiesListToggle";
+import PropertiesList from "@/components/PropertiesList/PropertiesList";
+import { getListedProperties } from "@/services/properties";
 
 const isGridView = !propertiesListStore.get();
 
+const propertiesList = await getListedProperties();
 ---
 
 <Layout>
@@ -18,8 +17,7 @@ const isGridView = !propertiesListStore.get();
       <h1 class="text-3xl font-bold">Real Estate Listings</h1>
       <PropertiesListToggle client:load />
     </div>
-    
-      <PropertiesList client:load />
-    
+
+    <PropertiesList client:load properties={propertiesList} />
   </div>
 </Layout>
