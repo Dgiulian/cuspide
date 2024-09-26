@@ -50,7 +50,7 @@ const { propertyId } = Astro.params;
 if (!propertyId) return Astro.redirect("/404");
 const propertyDetail = await getPropertyByDocumentId(propertyId);
 
-if (!propertyDetail) return Astro.redirect("/404");
+// if (!propertyDetail) return Astro.redirect("/404");
 
 console.log(propertyDetail);
 ---
@@ -69,9 +69,13 @@ console.log(propertyDetail);
           <CardTitle>Detalles de la Propiedad</CardTitle>
           <CardDescription className="text-gray-400"
             >{propiedad.address}
-            <BlocksRenderer
-              content={propertyDetail.description as BlocksContent}
-            />
+            {
+              propertyDetail?.description && (
+                <BlocksRenderer
+                  content={propertyDetail.description as BlocksContent}
+                />
+              )
+            }
           </CardDescription>
         </CardHeader>
         <CardContent>

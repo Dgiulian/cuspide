@@ -11,13 +11,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { MapPin, Check } from "lucide-react";
-import PropiedadesData from "@/data/propiedades.json";
 
 import "@/styles/globals.css";
 import { getFeaturedProperties } from "@/services/properties";
 
-// const PROPIEDADES_DESTACADAS = PropiedadesData.filter(p=>p.highlight).splice(0,3) as PropiedadType[];
-const PROPIEDADES_DESTACADAS = await getFeaturedProperties();
+const featuredProperties = await getFeaturedProperties();
 ---
 
 <Layout>
@@ -61,14 +59,17 @@ const PROPIEDADES_DESTACADAS = await getFeaturedProperties();
       </h2>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
-          PROPIEDADES_DESTACADAS.map((p) => (
+          featuredProperties.map((p) => (
             <Card key={p.id} className="bg-gray-800 border-gray-700">
               <CardHeader>
                 <Image
                   alt={`${p.title}`}
                   class="aspect-[4/3] overflow-hidden rounded-t-xl object-cover"
                   height="300"
-                  src={`/placeholder.svg?height=300&width=400`}
+                  src={
+                    p.images?.[0].formats?.medium.url ??
+                    `/placeholder.svg?height=300&width=400`
+                  }
                   width="400"
                 />
               </CardHeader>
@@ -84,9 +85,12 @@ const PROPIEDADES_DESTACADAS = await getFeaturedProperties();
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">
+                <a
+                  href={`/detalle/${p.documentId}`}
+                  class="h-10 w-full px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+                >
                   Ver Detalles
-                </Button>
+                </a>
               </CardFooter>
             </Card>
           ))
