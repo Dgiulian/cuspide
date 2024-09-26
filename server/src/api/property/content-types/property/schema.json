@@ -56,6 +56,19 @@
     },
     "featured": {
       "type": "boolean"
+    },
+    "property_type": {
+      "type": "enumeration",
+      "enum": [
+        "terreno",
+        "casa",
+        "departamento",
+        "local",
+        "deposito"
+      ]
+    },
+    "age": {
+      "type": "integer"
     }
   }
 }

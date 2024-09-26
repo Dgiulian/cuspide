@@ -26,6 +26,10 @@ export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
     balcony: Schema.Attribute.Boolean;
     price: Schema.Attribute.Integer;
     featured: Schema.Attribute.Boolean;
+    property_type: Schema.Attribute.Enumeration<
+      ['terreno', 'casa', 'departamento', 'local', 'deposito']
+    >;
+    age: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

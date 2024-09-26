@@ -1,29 +1,23 @@
 ---
-import Layout from "@/layouts/Layout.astro"
-import { Image } from 'astro:assets';
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { MapPin, Check } from "lucide-react"
+import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { MapPin, Check } from "lucide-react";
 import PropiedadesData from "@/data/propiedades.json";
 
-import '@/styles/globals.css'
+import "@/styles/globals.css";
+import { getFeaturedProperties } from "@/services/properties";
 
-type PropiedadType = {
-  id: string;
-  title: string;
-  description: string;
-  address: string;
-  addressNum: string;
-  city?: string;
-  state?: string;
-  price: string;
-  currency: 'US' | 'ARS';
-  highlight: boolean;
-}
-
-const PROPIEDADES_DESTACADAS = PropiedadesData.filter(p=>p.highlight).splice(0,3) as PropiedadType[];
-
+// const PROPIEDADES_DESTACADAS = PropiedadesData.filter(p=>p.highlight).splice(0,3) as PropiedadType[];
+const PROPIEDADES_DESTACADAS = await getFeaturedProperties();
 ---
 
 <Layout>
@@ -31,17 +25,28 @@ const PROPIEDADES_DESTACADAS = PropiedadesData.filter(p=>p.highlight).splice(0,3
     <div class="container px-4 md:px-6">
       <div class="flex flex-col items-center space-y-4 text-center">
         <div class="space-y-2">
-          <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+          <h1
+            class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none"
+          >
             Encuentra Tu Hogar Ideal
           </h1>
           <p class="mx-auto max-w-[700px] text-gray-400 md:text-xl">
-            Descubre la propiedad perfecta con Cuspide. Estamos aquí para ayudarte en cada paso del camino.
+            Descubre la propiedad perfecta con Cuspide. Estamos aquí para
+            ayudarte en cada paso del camino.
           </p>
         </div>
         <div class="w-full max-w-sm space-y-2">
           <form class="flex space-x-2">
-            <Input className="max-w-lg flex-1 bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400" placeholder="Ingresa una ubicación" type="text" />
-            <Button type="submit" className="bg-blue-600 text-white hover:bg-blue-700">Buscar</Button>
+            <Input
+              className="max-w-lg flex-1 bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400"
+              placeholder="Ingresa una ubicación"
+              type="text"
+            />
+            <Button
+              type="submit"
+              className="bg-blue-600 text-white hover:bg-blue-700"
+              >Buscar</Button
+            >
           </form>
         </div>
       </div>
@@ -49,58 +54,85 @@ const PROPIEDADES_DESTACADAS = PropiedadesData.filter(p=>p.highlight).splice(0,3
   </section>
   <section class="w-full py-12 md:py-24 lg:py-32" id="propiedades">
     <div class="container px-4 md:px-6">
-      <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">Propiedades Destacadas</h2>
+      <h2
+        class="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8"
+      >
+        Propiedades Destacadas
+      </h2>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {PROPIEDADES_DESTACADAS.map((p) => (
-          <Card key={p.id} className="bg-gray-800 border-gray-700">
-            <CardHeader>
-              <Image
-                alt={`${p.title}`}
-                class="aspect-[4/3] overflow-hidden rounded-t-xl object-cover"
-                height="300"
-                src={`/placeholder.svg?height=300&width=400`}
-                width="400"
-              />
-            </CardHeader>
-            <CardContent>
-              <CardTitle className="text-gray-100">{p.title}</CardTitle>
-              <p class="text-sm text-gray-400"></p>
-              <p class="text-lg font-bold mt-2 text-blue-400">${p.price}</p>
-              <div class="flex items-center mt-2">
-                <MapPin className="h-4 w-4 mr-1 text-gray-400" />
-                <span class="text-sm text-gray-400">{p.city}, {p.state}</span>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">Ver Detalles</Button>
-            </CardFooter>
-          </Card>
-        ))}
+        {
+          PROPIEDADES_DESTACADAS.map((p) => (
+            <Card key={p.id} className="bg-gray-800 border-gray-700">
+              <CardHeader>
+                <Image
+                  alt={`${p.title}`}
+                  class="aspect-[4/3] overflow-hidden rounded-t-xl object-cover"
+                  height="300"
+                  src={`/placeholder.svg?height=300&width=400`}
+                  width="400"
+                />
+              </CardHeader>
+              <CardContent>
+                <CardTitle className="text-gray-100">{p.title}</CardTitle>
+                <p class="text-sm text-gray-400" />
+                <p class="text-lg font-bold mt-2 text-blue-400">${p.price}</p>
+                <div class="flex items-center mt-2">
+                  <MapPin className="h-4 w-4 mr-1 text-gray-400" />
+                  <span class="text-sm text-gray-400">
+                    {p.city}, {p.state}
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">
+                  Ver Detalles
+                </Button>
+              </CardFooter>
+            </Card>
+          ))
+        }
       </div>
     </div>
   </section>
   <section class="w-full py-12 md:py-24 lg:py-32 bg-gray-800" id="destacados">
     <div class="container px-4 md:px-6">
-      <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">Por qu&eacute; elegirnos</h2>
+      <h2
+        class="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8"
+      >
+        Por qu&eacute; elegirnos
+      </h2>
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {[
-          { title: "Agentes Expertos", description: "Nuestro equipo de agentes experimentados está aquí para guiarte." },
-          { title: "Amplia Selección", description: "Explora nuestro extenso portafolio de propiedades." },
-          { title: "Proceso Sencillo", description: "Hacemos que comprar y vender propiedades sea fácil y sin complicaciones." },
-        ].map((item, i) => (
-          <Card key={i} className="bg-gray-700 border-gray-600">
-            <CardHeader>
-              <CardTitle className="text-gray-100">{item.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p class="text-gray-300">{item.description}</p>
-            </CardContent>
-            <CardFooter>
-              <Check className="text-green-400 mr-2" />
-              <span class="text-sm text-gray-400">Confianza de miles</span>
-            </CardFooter>
-          </Card>
-        ))}
+        {
+          [
+            {
+              title: "Agentes Expertos",
+              description:
+                "Nuestro equipo de agentes experimentados está aquí para guiarte.",
+            },
+            {
+              title: "Amplia Selección",
+              description: "Explora nuestro extenso portafolio de propiedades.",
+            },
+            {
+              title: "Proceso Sencillo",
+              description:
+                "Hacemos que comprar y vender propiedades sea fácil y sin complicaciones.",
+            },
+          ].map((item, i) => (
+            <Card key={i} className="bg-gray-700 border-gray-600">
+              <CardHeader>
+                <CardTitle className="text-gray-100">{item.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p class="text-gray-300">{item.description}</p>
+              </CardContent>
+              <CardFooter>
+                <Check className="text-green-400 mr-2" />
+                <span class="text-sm text-gray-400">Confianza de miles</span>
+              </CardFooter>
+            </Card>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -108,13 +140,19 @@ const PROPIEDADES_DESTACADAS = PropiedadesData.filter(p=>p.highlight).splice(0,3
     <div class="container px-4 md:px-6">
       <div class="flex flex-col items-center space-y-4 text-center">
         <div class="space-y-2">
-          <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">¿Listo para Encontrar Tu Hogar Ideal?</h2>
+          <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
+            ¿Listo para Encontrar Tu Hogar Ideal?
+          </h2>
           <p class="mx-auto max-w-[700px] text-gray-400 md:text-xl">
-            Cont&aacute;ctanos hoy y deja que nuestros expertos agentes te ayuden a encontrar la propiedad perfecta.
+            Cont&aacute;ctanos hoy y deja que nuestros expertos agentes te
+            ayuden a encontrar la propiedad perfecta.
           </p>
         </div>
         <div class="w-full max-w-sm space-y-2">
-          <Button className="w-full bg-blue-600 text-white hover:bg-blue-700" size="lg">
+          <Button
+            className="w-full bg-blue-600 text-white hover:bg-blue-700"
+            size="lg"
+          >
             Contactanos
           </Button>
         </div>
