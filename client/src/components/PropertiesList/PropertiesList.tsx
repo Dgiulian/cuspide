@@ -1,5 +1,4 @@
 import { propertiesListStore } from "@/components/PropertiesList/store";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,57 +8,6 @@ import {
 } from "@/components/ui/card";
 import { useStore } from "@nanostores/react";
 import { type PropiedadType } from "@/services/properties";
-
-const listings = [
-  {
-    id: 1,
-    title: "Modern Apartment",
-    price: "$250,000",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: 1000,
-  },
-  {
-    id: 2,
-    title: "Cozy Cottage",
-    price: "$180,000",
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: 800,
-  },
-  {
-    id: 3,
-    title: "Luxury Villa",
-    price: "$1,200,000",
-    bedrooms: 5,
-    bathrooms: 4,
-    sqft: 4000,
-  },
-  {
-    id: 4,
-    title: "Downtown Loft",
-    price: "$350,000",
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: 1200,
-  },
-  {
-    id: 5,
-    title: "Suburban Family Home",
-    price: "$450,000",
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 2500,
-  },
-  {
-    id: 6,
-    title: "Beachfront Condo",
-    price: "$550,000",
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 1500,
-  },
-];
 
 export default function PropertiesListToggle({
   properties,

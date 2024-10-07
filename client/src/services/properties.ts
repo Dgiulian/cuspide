@@ -64,6 +64,7 @@ export type PropiedadType = {
   land_surface: number;
   built_surface: number;
   images: StrapiImage[];
+  image_cover: StrapiImage;
 };
 
 type StrapiResponse<T> = {
@@ -90,7 +91,7 @@ export async function getFeaturedProperties(): Promise<PropiedadType[]> {
   const res = await fetch(
     `${
       import.meta.env.STRAPI_URL
-    }/api/properties?filters[featured][$eq]=true&pagination[page]=1&pagination[pageSize]=3&populate=images`
+    }/api/properties?filters[featured][$eq]=true&pagination[page]=1&pagination[pageSize]=3&populate=image_cover`
   );
   const parsedResponse: StrapiResponse<PropiedadType[]> = await res.json();
   return parsedResponse.data;

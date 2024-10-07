@@ -10,16 +10,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { MapPin, Check } from "lucide-react";
+import { MapPin, Check, BadgeCheck, Building, Home, Phone } from "lucide-react";
 
 import "@/styles/globals.css";
 import { getFeaturedProperties } from "@/services/properties";
+import ServiceCard from "@/components/ServiceCard.astro";
 
 const featuredProperties = await getFeaturedProperties();
+console.log(featuredProperties);
 ---
 
 <Layout>
-  <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gray-800">
+  <section
+    class="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gray-200 dark:bg-gray-800"
+  >
     <div class="container px-4 md:px-6">
       <div class="flex flex-col items-center space-y-4 text-center">
         <div class="space-y-2">
@@ -28,7 +32,7 @@ const featuredProperties = await getFeaturedProperties();
           >
             Encuentra Tu Hogar Ideal
           </h1>
-          <p class="mx-auto max-w-[700px] text-gray-400 md:text-xl">
+          <p class="mx-auto max-w-[700px] dark:text-gray-400 md:text-xl">
             Descubre la propiedad perfecta con Cuspide. Estamos aquí para
             ayudarte en cada paso del camino.
           </p>
@@ -36,7 +40,7 @@ const featuredProperties = await getFeaturedProperties();
         <div class="w-full max-w-sm space-y-2">
           <form class="flex space-x-2">
             <Input
-              className="max-w-lg flex-1 bg-gray-700 border-gray-600 text-gray-100 placeholder-gray-400"
+              className="max-w-lg flex-1 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400"
               placeholder="Ingresa una ubicación"
               type="text"
             />
@@ -50,7 +54,7 @@ const featuredProperties = await getFeaturedProperties();
       </div>
     </div>
   </section>
-  <section class="w-full py-12 md:py-24 lg:py-32" id="propiedades">
+  <section class="w-full py-12 md:py-24 lg:py-32" id="propiedades-destacadas">
     <div class="container px-4 md:px-6">
       <h2
         class="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8"
@@ -60,26 +64,26 @@ const featuredProperties = await getFeaturedProperties();
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
           featuredProperties.map((p) => (
-            <Card key={p.id} className="bg-gray-800 border-gray-700">
+            <Card key={p.id} className="dark:bg-gray-800 dark:border-gray-700">
               <CardHeader>
                 <Image
                   alt={`${p.title}`}
                   class="aspect-[4/3] overflow-hidden rounded-t-xl object-cover"
                   height="300"
-                  src={
-                    p.images?.[0].formats?.medium.url ??
-                    `/placeholder.svg?height=300&width=400`
-                  }
+                  src={p.image_cover.url ?? `/favicon.svg`}
                   width="400"
                 />
               </CardHeader>
               <CardContent>
-                <CardTitle className="text-gray-100">{p.title}</CardTitle>
-                <p class="text-sm text-gray-400" />
-                <p class="text-lg font-bold mt-2 text-blue-400">${p.price}</p>
+                <CardTitle className="dark:text-gray-100">{p.title}</CardTitle>
+                <p class="text-sm dark:text-gray-400" />
+                <p class="text-lg font-bold mt-2 text-blue-400">
+                  {p.currency === "US" ? "$" : "USD"}
+                  {p.price}
+                </p>
                 <div class="flex items-center mt-2">
-                  <MapPin className="h-4 w-4 mr-1 text-gray-400" />
-                  <span class="text-sm text-gray-400">
+                  <MapPin className="h-4 w-4 mr-1 dark:text-gray-400" />
+                  <span class="text-sm dark:text-gray-400">
                     {p.city}, {p.state}
                   </span>
                 </div>
@@ -98,7 +102,10 @@ const featuredProperties = await getFeaturedProperties();
       </div>
     </div>
   </section>
-  <section class="w-full py-12 md:py-24 lg:py-32 bg-gray-800" id="destacados">
+  <section
+    class="w-full py-12 md:py-24 lg:py-32 bg-gray-200 dark:bg-gray-800"
+    id="destacados"
+  >
     <div class="container px-4 md:px-6">
       <h2
         class="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8"
@@ -123,18 +130,11 @@ const featuredProperties = await getFeaturedProperties();
                 "Hacemos que comprar y vender propiedades sea fácil y sin complicaciones.",
             },
           ].map((item, i) => (
-            <Card key={i} className="bg-gray-700 border-gray-600">
-              <CardHeader>
-                <CardTitle className="text-gray-100">{item.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p class="text-gray-300">{item.description}</p>
-              </CardContent>
-              <CardFooter>
-                <Check className="text-green-400 mr-2" />
-                <span class="text-sm text-gray-400">Confianza de miles</span>
-              </CardFooter>
-            </Card>
+            <ServiceCard
+              title={item.title}
+              description={item.description}
+              subtitle="Confianza de miles"
+            />
           ))
         }
       </div>

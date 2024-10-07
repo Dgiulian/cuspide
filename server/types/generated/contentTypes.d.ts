@@ -30,6 +30,9 @@ export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
       ['terreno', 'casa', 'departamento', 'local', 'deposito']
     >;
     age: Schema.Attribute.Integer;
+    image_cover: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

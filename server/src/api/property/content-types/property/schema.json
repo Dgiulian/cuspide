@@ -69,6 +69,16 @@
     },
     "age": {
       "type": "integer"
+    },
+    "image_cover": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
