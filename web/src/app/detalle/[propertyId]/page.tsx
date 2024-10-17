@@ -54,22 +54,22 @@ export default async function DetallePage({ params }: Props) {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8 bg-gray-900 text-gray-100">
+      <div className="container mx-auto px-4 py-8 dark:bg-gray-900 dark:text-gray-100">
         <h1 className="text-3xl font-bold mb-6">{propertyDetail.title}</h1>
 
         {/* Carrusel de Imágenes */}
-        <ImageCarousel propiedad={propiedad} />
+        <ImageCarousel images={propertyDetail.images} />
         <div className="grid md:grid-cols-2 gap-8">
           {/* Detalles de la Propiedad */}
-          <Card className="bg-gray-800 border-gray-700 text-gray-100">
+          <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
             <CardHeader>
               <CardTitle>Descripción</CardTitle>
               <CardDescription className="text-gray-400">
-                {propertyDetail?.description && (
+                {/* propertyDetail?.description && (
                   <BlocksRenderer
                     content={propertyDetail.description as BlocksContent}
                   />
-                )}
+                )*/}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -113,7 +113,7 @@ export default async function DetallePage({ params }: Props) {
           </Card>
 
           {/* Mapa */}
-          <Card className="bg-gray-800 border-gray-700 text-gray-100">
+          <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
             <CardHeader>
               <CardTitle>Ubicación</CardTitle>
             </CardHeader>
@@ -134,7 +134,7 @@ export default async function DetallePage({ params }: Props) {
         </div>
 
         <div className="mt-8 text-center">
-          <Button size="lg" variant="secondary">
+          <Button size="lg" variant="default">
             Programar una Visita
           </Button>
         </div>
