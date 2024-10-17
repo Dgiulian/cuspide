@@ -10,14 +10,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { MapPin, Check, BadgeCheck, Building, Home, Phone } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 import "@/styles/globals.css";
 import { getFeaturedProperties } from "@/services/properties";
 import ServiceCard from "@/components/ServiceCard.astro";
 
 const featuredProperties = await getFeaturedProperties();
-console.log(featuredProperties);
 ---
 
 <Layout>
