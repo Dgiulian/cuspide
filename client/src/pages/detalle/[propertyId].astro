@@ -17,8 +17,8 @@ import {
   BlocksRenderer,
   type BlocksContent,
 } from "@strapi/blocks-react-renderer";
-
-// import Mapa from "@/components/Mapa"
+// import Map from "@/components/Map.astro";
+import { Mapa } from "@/components/Mapa.tsx";
 
 const propiedad = {
   id: "123",
@@ -64,9 +64,8 @@ const propertyDetail = await getPropertyByDocumentId(propertyId);
       {/* Detalles de la Propiedad */}
       <Card className="bg-gray-800 border-gray-700 text-gray-100">
         <CardHeader>
-          <CardTitle>Detalles de la Propiedad</CardTitle>
-          <CardDescription className="text-gray-400"
-            >{propiedad.address}
+          <CardTitle>Descripción</CardTitle>
+          <CardDescription className="text-gray-400">
             {
               propertyDetail?.description && (
                 <BlocksRenderer
@@ -88,7 +87,6 @@ const propertyDetail = await getPropertyByDocumentId(propertyId);
             >
             <Badge variant="secondary">En Venta</Badge>
           </div>
-          <p class="mb-4">{propiedad.description}</p>
           <div class="grid grid-cols-3 gap-4 mb-4">
             <div class="flex items-center">
               <Bed className="mr-2" />
