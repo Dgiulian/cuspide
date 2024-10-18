@@ -4,7 +4,7 @@
   "info": {
     "singularName": "property",
     "pluralName": "properties",
-    "displayName": "properties",
+    "displayName": "Properties",
     "description": ""
   },
   "options": {
@@ -71,14 +71,20 @@
       "type": "integer"
     },
     "image_cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "agente": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::agente.agente"
     }
   }
 }

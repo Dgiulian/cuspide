@@ -1,53 +1,5 @@
 import type { Struct, Schema } from '@strapi/strapi';
 
-export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
-  collectionName: 'properties';
-  info: {
-    singularName: 'property';
-    pluralName: 'properties';
-    displayName: 'properties';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: Schema.Attribute.String;
-    description: Schema.Attribute.Blocks;
-    currency: Schema.Attribute.Enumeration<['usd', 'ars']>;
-    images: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    rooms: Schema.Attribute.Integer;
-    land_surface: Schema.Attribute.Decimal;
-    built_surface: Schema.Attribute.Decimal;
-    bathrooms: Schema.Attribute.Integer;
-    balcony: Schema.Attribute.Boolean;
-    price: Schema.Attribute.Integer;
-    featured: Schema.Attribute.Boolean;
-    property_type: Schema.Attribute.Enumeration<
-      ['terreno', 'casa', 'departamento', 'local', 'deposito']
-    >;
-    age: Schema.Attribute.Integer;
-    image_cover: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::property.property'
-    >;
-  };
-}
-
 export interface PluginUploadFile extends Struct.CollectionTypeSchema {
   collectionName: 'files';
   info: {
@@ -533,6 +485,82 @@ export interface PluginUsersPermissionsUser
   };
 }
 
+export interface ApiAgenteAgente extends Struct.CollectionTypeSchema {
+  collectionName: 'agentes';
+  info: {
+    singularName: 'agente';
+    pluralName: 'agentes';
+    displayName: 'Agente';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    email: Schema.Attribute.Email;
+    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::agente.agente'>;
+  };
+}
+
+export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
+  collectionName: 'properties';
+  info: {
+    singularName: 'property';
+    pluralName: 'properties';
+    displayName: 'Properties';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    description: Schema.Attribute.Blocks;
+    currency: Schema.Attribute.Enumeration<['usd', 'ars']>;
+    images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    rooms: Schema.Attribute.Integer;
+    land_surface: Schema.Attribute.Decimal;
+    built_surface: Schema.Attribute.Decimal;
+    bathrooms: Schema.Attribute.Integer;
+    balcony: Schema.Attribute.Boolean;
+    price: Schema.Attribute.Integer;
+    featured: Schema.Attribute.Boolean;
+    property_type: Schema.Attribute.Enumeration<
+      ['terreno', 'casa', 'departamento', 'local', 'deposito']
+    >;
+    age: Schema.Attribute.Integer;
+    image_cover: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    agente: Schema.Attribute.Relation<'oneToOne', 'api::agente.agente'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::property.property'
+    >;
+  };
+}
+
 export interface AdminPermission extends Struct.CollectionTypeSchema {
   collectionName: 'admin_permissions';
   info: {
@@ -898,7 +926,6 @@ export interface AdminTransferTokenPermission
 declare module '@strapi/strapi' {
   export module Public {
     export interface ContentTypeSchemas {
-      'api::property.property': ApiPropertyProperty;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
@@ -909,6 +936,8 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::agente.agente': ApiAgenteAgente;
+      'api::property.property': ApiPropertyProperty;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;
