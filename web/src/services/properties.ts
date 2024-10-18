@@ -67,8 +67,17 @@ export type PropiedadType = {
   built_surface: number;
   images: StrapiImage[];
   image_cover: StrapiImage;
+  agente?: AgenteType;
 };
 
+type AgenteType = {
+  id: number;
+  documentId: string;
+  name: string;
+  email: string;
+  phone: string;
+  avatar: StrapiImage;
+};
 type StrapiResponse<T> = {
   data: T;
   meta: {
@@ -98,7 +107,7 @@ export async function getPropertyByDocumentId(
   documentId: string
 ): Promise<PropiedadType> {
   const res = await fetch(
-    `${env.STRAPI_URL}/api/properties/${documentId}?populate=images`
+    `${env.STRAPI_URL}/api/properties/${documentId}?populate=images&populate=agente`
   );
   const parsedResponse: StrapiResponse<PropiedadType> = await res.json();
   return parsedResponse.data;

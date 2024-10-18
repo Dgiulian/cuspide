@@ -15,6 +15,7 @@ import "@/app/globals.css";
 import { getFeaturedProperties } from "@/services/properties";
 import { ServiceCard } from "@/components/service-card";
 import Image from "next/image";
+import { formatPrice } from "@/lib/utils";
 
 export default async function HomePage() {
   const featuredProperties = await getFeaturedProperties();
@@ -81,8 +82,9 @@ export default async function HomePage() {
                   </CardTitle>
                   <p className="text-sm dark:text-gray-400" />
                   <p className="text-lg font-bold mt-2 text-blue-400">
-                    {p.currency === "US" ? "$" : "USD"}
-                    {p.price}
+                    {p.price
+                      ? formatPrice(p.price, p.currency)
+                      : "Consultar precio"}
                   </p>
                   <div className="flex items-center mt-2">
                     <MapPin className="h-4 w-4 mr-1 dark:text-gray-400" />
