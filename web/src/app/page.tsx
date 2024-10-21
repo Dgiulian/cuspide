@@ -20,7 +20,6 @@ import heroBg from "@/images/hero-bg.jpg";
 
 export default async function HomePage() {
   const featuredProperties = await getFeaturedProperties();
-  console.log(featuredProperties);
 
   return (
     <>

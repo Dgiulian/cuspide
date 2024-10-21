@@ -91,7 +91,9 @@ type StrapiResponse<T> = {
 };
 
 export async function getListedProperties(): Promise<PropiedadType[]> {
-  const res = await fetch(`${env.STRAPI_URL}/api/properties&populate=images`);
+  const res = await fetch(
+    `${env.STRAPI_URL}/api/properties?populate=agente&populate=image_cover`
+  );
   const parsedResponse: StrapiResponse<PropiedadType[]> = await res.json();
   return parsedResponse.data;
 }
