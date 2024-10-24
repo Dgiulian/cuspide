@@ -67,7 +67,7 @@
         "deposito"
       ]
     },
-    "age": {
+    "year_built": {
       "type": "integer"
     },
     "image_cover": {
@@ -85,6 +85,16 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::agente.agente"
+    },
+    "listing_type": {
+      "type": "enumeration",
+      "enum": [
+        "alquiler",
+        "venta"
+      ]
+    },
+    "garage": {
+      "type": "boolean"
     }
   }
 }
