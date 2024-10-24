@@ -49,13 +49,15 @@
       "type": "integer"
     },
     "balcony": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "price": {
       "type": "integer"
     },
     "featured": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "property_type": {
       "type": "enumeration",
@@ -94,7 +96,8 @@
       ]
     },
     "garage": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     }
   }
 }

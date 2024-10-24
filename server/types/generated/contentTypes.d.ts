@@ -549,9 +549,9 @@ export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
     land_surface: Schema.Attribute.Decimal;
     built_surface: Schema.Attribute.Decimal;
     bathrooms: Schema.Attribute.Integer;
-    balcony: Schema.Attribute.Boolean;
+    balcony: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     price: Schema.Attribute.Integer;
-    featured: Schema.Attribute.Boolean;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     property_type: Schema.Attribute.Enumeration<
       ['terreno', 'casa', 'departamento', 'local', 'deposito']
     >;
@@ -561,7 +561,7 @@ export interface ApiPropertyProperty extends Struct.CollectionTypeSchema {
     >;
     agente: Schema.Attribute.Relation<'oneToOne', 'api::agente.agente'>;
     listing_type: Schema.Attribute.Enumeration<['alquiler', 'venta']>;
-    garage: Schema.Attribute.Boolean;
+    garage: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
