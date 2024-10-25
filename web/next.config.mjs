@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["res.cloudinary.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        // port: '',
+        // pathname: '/account123/**',
+        // search: '',
+      },
+    ],
   },
   webpack(config) {
     config.module.rules.push({

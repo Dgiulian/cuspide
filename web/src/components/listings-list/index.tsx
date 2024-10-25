@@ -19,7 +19,6 @@ interface ListingsListProps {
 }
 export default function ListingsList({ listings }: ListingsListProps) {
   const [isGridView, setIsGridView] = useState(true);
-  console.log(listings);
   return (
     <div className="container mx-auto py-8">
       <div className="flex justify-between items-center mb-6">

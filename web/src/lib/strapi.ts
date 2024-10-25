@@ -2,10 +2,22 @@ import { env } from "@/env";
 
 interface Props {
   endpoint: string;
-  query?: Record<string, string>;
+  query?: Record<string, string | string[]>;
   wrappedByKey?: string;
   wrappedByList?: boolean;
 }
+
+// type StrapiResponse<T> = {
+//   data: T;
+//   meta: {
+//     pagination: {
+//       page: number;
+//       pageSize: number;
+//       pageCount: number;
+//       total: number;
+//     };
+//   };
+// };
 
 /**
  * Fetches data from the Strapi API
@@ -18,7 +30,7 @@ interface Props {
 export default async function fetchApi<T>({
   endpoint,
   query,
-  wrappedByKey,
+  wrappedByKey = "data",
   wrappedByList,
 }: Props): Promise<T> {
   if (endpoint.startsWith("/")) {
@@ -29,10 +41,20 @@ export default async function fetchApi<T>({
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
-      url.searchParams.append(key, value);
+      if (Array.isArray(value)) {
+        for (const v of value) {
+          url.searchParams.append(key, v);
+        }
+      } else {
+        url.searchParams.append(key, value);
+      }
     });
   }
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), {
+    headers: {
+      Authorization: `bearer ${env.STRAPI_TOKEN}`,
+    },
+  });
   let data = await res.json();
 
   if (wrappedByKey) {

@@ -17,7 +17,6 @@ export async function sendMail({
   { status: "success" } | { status: "error"; message: string }
 > {
   const mailgun = new Mailgun(formData);
-  console.log(env.MAILGUN_API_KEY);
   const mg = mailgun.client({
     username: "api",
     key: env.MAILGUN_API_KEY,
