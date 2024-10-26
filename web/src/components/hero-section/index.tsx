@@ -58,6 +58,8 @@ export function HeroSection() {
                   <SelectItem value="terreno">Terreno</SelectItem>
                   <SelectItem value="casa">Casa</SelectItem>
                   <SelectItem value="departamento">Departamento</SelectItem>
+                  <SelectItem value="duplex">Duplex</SelectItem>
+                  <SelectItem value="local">Local</SelectItem>
                   {/* <SelectItem value="system">System</SelectItem> */}
                 </SelectContent>
               </Select>
