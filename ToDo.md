@@ -1,16 +1,17 @@
-- [ ] Add search
-- [ ] Add Location
-- [ ] Add Map
-- [ ] Add engagement type
-- [ ] Add filter by type
-- [ ] Add Cuspide Logo
-- [ ] Add hero image / Video
-- [ ] Add Contact page
-- [ ] Improve About us page
-- [ ] Add Facebook and Instagram in footer
-- [ ] Add Phone / Contact Info
-- [ ] Add Cuspide favicon
-- [ ] Add Cuspide title and meta info
-- [ ] Deploy Database
-- [ ] Deploy server
-- [ ] Deploy database
+- Add search
+- Add Location
+- Add Map
+- Add type normalization
+- Add listing type {cm:2024-10-26}
+- Add filter by type
+- Add Cuspide Logo
+- Add hero image / Video {cm:2024-10-26}
+- Add Contact page {cm:2024-10-26}
+- Improve About us page
+- Add Facebook and Instagram in footer {cm:2024-10-26}
+- Add Phone / Contact Info
+- Add Cuspide favicon
+- Add Cuspide title and meta info
+- Deploy Database
+- Deploy server
+- Deploy database
