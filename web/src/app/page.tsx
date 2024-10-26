@@ -14,7 +14,7 @@ import { getFeaturedProperties } from "@/services/properties";
 import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { HeroSection } from "@/components/hero-section";
-import { ContactUsSection } from "./contact-us-section";
+import { ContactUsSection } from "@/components/contact-us-section";
 
 export default async function HomePage() {
   const featuredProperties = await getFeaturedProperties();

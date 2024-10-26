@@ -19,8 +19,8 @@ import { type SanityDocument } from "next-sanity";
 
 import { client } from "@/sanity/client";
 import { HeroSection } from "@/components/hero-section";
-import BenefitsSection from "../benefits-section";
-import { ContactUsSection } from "../contact-us-section";
+import BenefitsSection from "@/components/benefits-section";
+import { ContactUsSection } from "@/components/contact-us-section";
 
 const PROPERTIES_QUERY = `*[
   _type == "listing" && featured == true
