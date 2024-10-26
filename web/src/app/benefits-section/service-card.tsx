@@ -8,13 +8,17 @@ import {
 } from "@/components/ui/card";
 import { Check } from "lucide-react";
 
-interface Props {
+interface ServiceCardProps {
   title: string;
   description?: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
-export function ServiceCard({ title, description, subtitle }: Props) {
+export function ServiceCard({
+  title,
+  description,
+  subtitle,
+}: ServiceCardProps) {
   return (
     <Card className="dark:bg-gray-700 dark:border-gray-600">
       <CardHeader>
@@ -26,10 +30,12 @@ export function ServiceCard({ title, description, subtitle }: Props) {
       <CardContent>
         <p className="dark:text-gray-300">{description}</p>
       </CardContent>
-      <CardFooter>
-        <Check className="text-green-400 mr-2" />
-        <span className="text-sm text-gray-400">{subtitle}</span>
-      </CardFooter>
+      {subtitle && (
+        <CardFooter>
+          <Check className="text-green-400 mr-2" />
+          <span className="text-sm text-gray-400">{subtitle}</span>
+        </CardFooter>
+      )}
     </Card>
   );
 }
