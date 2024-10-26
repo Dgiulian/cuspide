@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -21,6 +20,7 @@ import { type SanityDocument } from "next-sanity";
 import { client } from "@/sanity/client";
 import { HeroSection } from "@/components/hero-section";
 import BenefitsSection from "../benefits-section";
+import { ContactUsSection } from "../contact-us-section";
 
 const PROPERTIES_QUERY = `*[
   _type == "listing" && featured == true
@@ -117,29 +117,7 @@ export default async function HomePage() {
         </div>
       </section>
       <BenefitsSection />
-      <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                ¿Listo para Encontrar Tu Hogar Ideal?
-              </h2>
-              <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
-                Cont&aacute;ctanos hoy y deja que nuestros expertos agentes te
-                ayuden a encontrar la propiedad perfecta.
-              </p>
-            </div>
-            <div className="w-full max-w-sm space-y-2">
-              <Button
-                className="w-full bg-blue-600 text-white hover:bg-blue-700"
-                size="lg"
-              >
-                Contactanos
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContactUsSection />
     </>
   );
 }
