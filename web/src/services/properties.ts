@@ -94,7 +94,7 @@ export async function getFeaturedProperties(): Promise<PropiedadType[]> {
   const res = await fetchApi<PropiedadType[]>({
     endpoint: "properties",
     query: {
-      "filters[featured][$eq]": "true",
+      "filters[featured][$neq]": "false",
       "pagination[page]": "1",
       "pagination[pageSize]": "3",
       populate: "image_cover",
@@ -109,6 +109,7 @@ export async function getPropertyByDocumentId(
   const res = await fetchApi<PropiedadType>({
     endpoint: `properties/${documentId}`,
     query: { populate: ["images", "agente"] },
+
     wrappedByKey: "data",
   });
   return res;

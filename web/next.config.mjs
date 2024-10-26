@@ -9,6 +9,15 @@ const nextConfig = {
         // pathname: '/account123/**',
         // search: '',
       },
+      {
+        protocol: "https",
+        hostname: "*.media.strapiapp.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        // hostname: "/images/**",
+      },
     ],
   },
   webpack(config) {
