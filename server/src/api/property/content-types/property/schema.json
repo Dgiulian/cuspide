@@ -98,6 +98,21 @@
     "garage": {
       "type": "boolean",
       "default": false
+    },
+    "location": {
+      "type": "json"
+    },
+    "province": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "listing": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::listing.listing",
+      "mappedBy": "property"
     }
   }
 }
