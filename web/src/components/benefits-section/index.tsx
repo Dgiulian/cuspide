@@ -1,4 +1,4 @@
-import { ServiceCard } from "@/app/benefits-section/service-card";
+import { ServiceCard } from "@/components/benefits-section/service-card";
 import React from "react";
 
 const BenefitsSection = () => {
