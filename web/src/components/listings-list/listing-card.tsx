@@ -18,7 +18,7 @@ type Props = {
 function ListingCard({ listing, isGridView }: Props) {
   return (
     <Card className={isGridView ? "" : "flex flex-row"}>
-      <div className={`relative ${isGridView ? "h-48" : "h-full w-1/3"}`}>
+      <div className={`relative ${isGridView ? "h-56" : "h-full w-1/3"}`}>
         <Image
           src={listing.image_cover?.url ?? `/favicon.svg`}
           alt={listing.title}
