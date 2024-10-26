@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPropertyByDocumentId } from "@/services/properties";
 import { MapPin } from "lucide-react";
-// import Map from "@/components/Map.astro";
+import { Mapa } from "@/components/mapa";
 import PropertyDetails from "@/components/property-details";
 import { redirect } from "next/navigation";
 
@@ -37,11 +37,7 @@ export default async function DetallePage({ params }: Props) {
             </CardHeader>
             <CardContent>
               <div className="h-[400px] rounded-lg overflow-hidden">
-                {/* <Mapa
-              centro={{ lat: propiedad.latitud, lng: propiedad.longitud }}
-              zoom={15}
-              marcadores={[{ lat: propiedad.latitud, lng: propiedad.longitud }]}
-            /> */}
+                <Mapa />
               </div>
               <div className="mt-4 flex items-center">
                 <MapPin className="mr-2" size={16} />

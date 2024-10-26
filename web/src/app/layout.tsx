@@ -32,6 +32,10 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
+        <link
+          href="https://unpkg.com/maplibre-gl@4.7.1>/dist/maplibre-gl.css"
+          rel="stylesheet"
+        />
         <title>Cuspide Bienes Raices</title>
       </head>
       <body
