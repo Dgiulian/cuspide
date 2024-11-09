@@ -44,7 +44,7 @@ function ListingCard({ listing, isGridView }: Props) {
         </CardContent>
         <CardFooter>
           <a
-            href={`/detalle/${listing.id}`}
+            href={`/detalle/${listing.slug}`}
             className="h-10 w-full px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
           >
             Ver Detalles

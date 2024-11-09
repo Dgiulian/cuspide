@@ -51,9 +51,10 @@ interface ImageFormat {
 
 export type PropiedadType = {
   id: string;
+  slug: string;
   // documentId: string;
   title: string;
-  description: string | BlocksContent;
+  description: null | string | BlocksContent;
   // address: string;
   // addressNum: string;
   city?: string;

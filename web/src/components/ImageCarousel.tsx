@@ -10,7 +10,7 @@ import { StrapiImage } from "@/services/properties";
 import Image from "next/image";
 
 interface Props {
-  images: StrapiImage[];
+  images: string[] | StrapiImage[];
 }
 
 const ImageCarousel = ({ images }: Props) => {
@@ -21,7 +21,7 @@ const ImageCarousel = ({ images }: Props) => {
           <CarouselItem key={index}>
             <div className="p-1">
               <Image
-                src={src.url}
+                src={getImageUrl(src)}
                 alt={`Imagen de la propiedad ${index + 1}`}
                 width={600}
                 height={400}
@@ -38,3 +38,10 @@ const ImageCarousel = ({ images }: Props) => {
 };
 
 export default ImageCarousel;
+
+function getImageUrl(image: string | StrapiImage) {
+  if (typeof image === "string") {
+    return image;
+  }
+  return image.url;
+}

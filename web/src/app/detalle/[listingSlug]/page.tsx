@@ -1,22 +1,22 @@
 import ImageCarousel from "@/components/ImageCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getPropertyByDocumentId } from "@/services/properties";
 import { MapPin } from "lucide-react";
 import { Mapa } from "@/components/mapa";
 import PropertyDetails from "@/components/property-details";
 import { redirect } from "next/navigation";
+import { getListingBySlug } from "@/services/get-listing-by-slug";
 
 interface Props {
-  params: { propertyId: string };
+  params: { listingSlug: string };
 }
 
 export default async function DetallePage({ params }: Props) {
-  const { propertyId } = params;
+  const { listingSlug } = params;
 
-  if (!propertyId) return redirect("/404");
+  if (!listingSlug) return redirect("/404");
 
-  const propertyDetail = await getPropertyByDocumentId(propertyId);
+  const propertyDetail = await getListingBySlug(listingSlug);
   if (!propertyDetail) return redirect("/404");
 
   return (

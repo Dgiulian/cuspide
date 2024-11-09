@@ -15,10 +15,8 @@ const urlFor = (source: SanityImageSource) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-export async function getFeaturedProperties(): Promise<Property[]> {
-  const FEATURED_PROPERTIES_QUERY = `*[
-    _type == "listing" && featured == true
-  ]|order(publishedAt desc)[0...12]
+export async function getListingBySlug(slug: string): Promise<Property | null> {
+  const LISTING_BY_SLUG_QUERY = `*[_type == "listing" && slug.current == $slug] | order(publishedAt desc)[0...12]
   { _id, 
    title, 
    price,
@@ -33,7 +31,6 @@ export async function getFeaturedProperties(): Promise<Property[]> {
       bathrooms,
       lot_size,
       garage,
-      slug,
       publishedAt,
       image_cover,
       images,
@@ -46,10 +43,19 @@ export async function getFeaturedProperties(): Promise<Property[]> {
     }`;
 
   const sanityData = await fetchCollection<SanityDocument<SanityListing>>({
-    query: FEATURED_PROPERTIES_QUERY,
+    query: LISTING_BY_SLUG_QUERY,
+    params: { slug },
     options,
   });
-  const featuredProperties: Property[] = sanityData.map((d) => ({
+
+  console.log({ sanityData, slug, LISTING_BY_SLUG_QUERY });
+
+  if (!sanityData.length) {
+    return null;
+  }
+
+  const d = sanityData[0];
+  const listingDetail: Property = {
     id: d._id,
     slug: d.slug.current,
     images: [],
@@ -68,7 +74,7 @@ export async function getFeaturedProperties(): Promise<Property[]> {
     state: d.property.state,
     price: d.price,
     currency: d.currency,
-  }));
+  };
 
-  return featuredProperties;
+  return listingDetail;
 }
