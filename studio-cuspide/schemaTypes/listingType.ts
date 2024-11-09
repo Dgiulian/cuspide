@@ -22,6 +22,12 @@ export const listingType = defineType({
       },
     }),
     defineField({
+      name: 'slug',
+      type: 'slug',
+      options: {source: 'title'},
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'property',
       title: 'Propiedad',
       type: 'reference',
@@ -55,6 +61,7 @@ export const listingType = defineType({
           return 'Type debe ser USD o ARS'
         }),
     }),
+
     defineField({
       name: 'price',
       title: 'Precio',

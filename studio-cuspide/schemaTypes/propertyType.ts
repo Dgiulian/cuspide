@@ -142,12 +142,6 @@ export const propertyType = defineType({
       hidden: ({parent}) => !['terreno'].includes(parent?.type),
     }),
     defineField({
-      name: 'slug',
-      type: 'slug',
-      options: {source: 'title'},
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
       name: 'image_cover',
       type: 'image',
     }),
