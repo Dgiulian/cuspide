@@ -1,8 +1,8 @@
 import { Property } from "@/domain/property";
 import { type SanityDocument } from "next-sanity";
+const options = { next: { revalidate: 30 } };
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-
 import {
   projectId,
   dataset,
@@ -10,14 +10,15 @@ import {
   SanityListing,
 } from "@/infrastructure/sanity";
 
-const options = { next: { revalidate: 30 } };
 const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-export async function getListingBySlug(slug: string): Promise<Property | null> {
-  const LISTING_BY_SLUG_QUERY = `*[_type == "listing" && slug.current == $slug] | order(publishedAt desc)[0...12]
+export async function getAllListings(): Promise<Property[]> {
+  const FEATURED_PROPERTIES_QUERY = `*[
+    _type == "listing"
+  ]|order(publishedAt desc)[0...12]
   { _id, 
    title, 
    price,
@@ -32,6 +33,7 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
       bathrooms,
       lot_size,
       garage,
+      slug,
       publishedAt,
       image_cover,
       images,
@@ -44,19 +46,10 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
     }`;
 
   const sanityData = await fetchCollection<SanityDocument<SanityListing>>({
-    query: LISTING_BY_SLUG_QUERY,
-    params: { slug },
+    query: FEATURED_PROPERTIES_QUERY,
     options,
   });
-
-  console.log({ sanityData, slug, LISTING_BY_SLUG_QUERY });
-
-  if (!sanityData.length) {
-    return null;
-  }
-
-  const d = sanityData[0];
-  const listingDetail: Property = {
+  const allListings: Property[] = sanityData.map((d) => ({
     id: d._id,
     slug: d.slug.current,
     images: [],
@@ -75,7 +68,7 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
     state: d.property.state,
     price: d.price,
     currency: d.currency,
-  };
+  }));
 
-  return listingDetail;
+  return allListings;
 }
