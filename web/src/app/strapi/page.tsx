@@ -1,13 +1,12 @@
 import "@/app/globals.css";
-
-import BenefitsSection from "@/components/benefits-section";
 import { ContactUsSection } from "@/components/contact-us-section";
 import { HeroSection } from "@/components/hero-section";
 import ListingCard from "@/components/listings-list/listing-card";
-import { getFeaturedProperties } from "@/services/get-featured-properties";
+import { getFeaturedProperties } from "@/services/properties";
 
 export default async function HomePage() {
   const featuredProperties = await getFeaturedProperties();
+
   return (
     <>
       <HeroSection />
@@ -26,7 +25,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-      <BenefitsSection />
+
       <ContactUsSection />
     </>
   );

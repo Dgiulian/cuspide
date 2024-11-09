@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatPrice(price: string, currency: "ARS" | "US") {
+export function formatPrice(price: string, currency: "ARS" | "USD") {
   return parseInt(price).toLocaleString("es-ES", {
     style: "currency",
     currency: currency ?? "ARS",

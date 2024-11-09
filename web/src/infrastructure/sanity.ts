@@ -1,0 +1,38 @@
+import { client } from "@/sanity/client";
+import { FilteredResponseQueryOptions } from "next-sanity";
+
+export const { projectId, dataset } = client.config();
+export { client };
+
+type FetchCollectionOptions = {
+  type?: string; // Type of the document in Sanity schema, e.g., 'post' or 'product'
+  fields?: string[]; // Specify fields to include, e.g., ['title', 'slug']
+  limit?: number; // Number of documents to fetch
+  sortBy?: string; // Field to sort by, e.g., '_createdAt'
+  order?: "asc" | "desc"; // Sort order
+  query?: string; // Custom GROQ query string,+
+  options?: FilteredResponseQueryOptions;
+};
+
+export async function fetchCollection<T = unknown>({
+  type,
+  fields,
+  limit,
+  sortBy = "_createdAt",
+  order = "asc",
+  query,
+  options,
+}: FetchCollectionOptions): Promise<T[]> {
+  // Use the custom query if provided, otherwise construct one based on options
+  const defaultFieldString = fields ? fields.join(", ") : "*";
+  const defaultQuery = `*[_type == "${type}"] | order(${sortBy} ${order}) [0...${limit ?? ""}] { ${defaultFieldString} }`;
+  const finalQuery = query ?? defaultQuery;
+
+  try {
+    const data = await client.fetch<T[]>(finalQuery, {}, options);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data from Sanity:", error);
+    return [];
+  }
+}

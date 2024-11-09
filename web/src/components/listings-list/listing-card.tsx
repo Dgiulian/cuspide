@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 
 type Props = {
-  listing: PropiedadType;
+  listing: Omit<PropiedadType, "description">;
   isGridView: boolean;
 };
 
@@ -20,7 +20,7 @@ function ListingCard({ listing, isGridView }: Props) {
     <Card className={isGridView ? "" : "flex flex-row"}>
       <div className={`relative ${isGridView ? "h-56" : "h-full w-1/3"}`}>
         <Image
-          src={listing.image_cover?.url ?? `/favicon.svg`}
+          src={getImageUrl(listing)}
           alt={listing.title}
           layout="fill"
           objectFit="cover"
@@ -34,7 +34,7 @@ function ListingCard({ listing, isGridView }: Props) {
         <CardContent>
           <p className="text-2xl font-bold">
             {listing.price
-              ? formatPrice(listing.price, listing.currency)
+              ? formatPrice(listing.price.toString(), listing.currency)
               : "Consultar precio"}
           </p>
           <p className="text-muted-foreground">
@@ -44,7 +44,7 @@ function ListingCard({ listing, isGridView }: Props) {
         </CardContent>
         <CardFooter>
           <a
-            href={`/detalle/${listing.documentId}`}
+            href={`/detalle/${listing.id}`}
             className="h-10 w-full px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
           >
             Ver Detalles
@@ -56,3 +56,10 @@ function ListingCard({ listing, isGridView }: Props) {
 }
 
 export default ListingCard;
+
+function getImageUrl(p: Pick<Props, "listing">["listing"]) {
+  if (typeof p.image_cover === "string") {
+    return p.image_cover;
+  }
+  return p.image_cover?.url ?? "";
+}

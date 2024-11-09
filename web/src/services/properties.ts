@@ -51,22 +51,22 @@ interface ImageFormat {
 
 export type PropiedadType = {
   id: string;
-  documentId: string;
+  // documentId: string;
   title: string;
   description: string | BlocksContent;
-  address: string;
-  addressNum: string;
+  // address: string;
+  // addressNum: string;
   city?: string;
   state?: string;
-  price: string;
-  currency: "US" | "ARS";
-  highlight: boolean;
+  price: number;
+  currency: "USD" | "ARS";
+  // highlight: boolean;
   rooms: number;
   bathrooms: number;
-  land_surface: number;
-  built_surface: number;
-  images: StrapiImage[];
-  image_cover: StrapiImage;
+  lot_size?: number;
+  built_surface?: number;
+  images: string[] | StrapiImage[];
+  image_cover: string | StrapiImage | null;
   agente?: AgenteType;
 };
 
