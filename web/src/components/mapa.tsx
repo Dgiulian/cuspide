@@ -1,14 +1,19 @@
 "use client";
+import { Geopoint } from "@/domain/property";
 import Map from "react-map-gl/maplibre";
 
+interface MapaProps {
+  location: Geopoint;
+}
+
 // mapStyle="https://demotiles.maplibre.org/style.json"
-export function Mapa() {
+export function Mapa({ location }: MapaProps) {
   return (
     <Map
       initialViewState={{
-        longitude: -122.4,
-        latitude: 37.8,
-        zoom: 3,
+        longitude: location.lng,
+        latitude: location.lat,
+        zoom: 14,
       }}
       style={{ width: 600, height: 400 }}
       mapStyle="https://tiles.openfreemap.org/styles/liberty"

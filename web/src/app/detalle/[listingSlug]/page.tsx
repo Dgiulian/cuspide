@@ -6,10 +6,17 @@ import { Mapa } from "@/components/mapa";
 import PropertyDetails from "@/components/property-details";
 import { redirect } from "next/navigation";
 import { getListingBySlug } from "@/services/get-listing-by-slug";
+import { Location } from "@/domain/property";
 
 interface Props {
   params: { listingSlug: string };
 }
+
+const DEFAULT_LOCATION: Location = {
+  lat: 0,
+  lng: 0,
+  alt: 0,
+};
 
 export default async function DetallePage({ params }: Props) {
   const { listingSlug } = params;
@@ -37,12 +44,14 @@ export default async function DetallePage({ params }: Props) {
             </CardHeader>
             <CardContent>
               <div className="h-[400px] rounded-lg overflow-hidden">
-                <Mapa />
+                <Mapa location={propertyDetail.location ?? DEFAULT_LOCATION} />
               </div>
-              <div className="mt-4 flex items-center">
-                <MapPin className="mr-2" size={16} />
-                <span>{"propiedad.address"}</span>
-              </div>
+              {propertyDetail.city && (
+                <div className="mt-4 flex items-center">
+                  <MapPin className="mr-2" size={16} />
+                  <span>{`${propertyDetail.city}, ${propertyDetail.state}`}</span>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

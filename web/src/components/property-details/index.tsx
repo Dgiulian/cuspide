@@ -32,7 +32,10 @@ const PropertyDetails = ({ property }: Props) => {
         <div className="flex justify-between items-center mb-4">
           <span className="text-2xl font-bold">
             {property.price
-              ? formatPrice(property.price.toString(), property.currency)
+              ? formatPrice(
+                  property.price.toString(),
+                  property.currency ?? "ars"
+                )
               : "Consultar precio"}
           </span>
           <Badge variant="secondary">En Venta</Badge>

@@ -60,7 +60,7 @@ export type PropiedadType = {
   city?: string;
   state?: string;
   price: number;
-  currency: "USD" | "ARS";
+  currency: "ars" | "usd";
   // highlight: boolean;
   rooms: number;
   bathrooms: number;
@@ -69,6 +69,12 @@ export type PropiedadType = {
   images: string[] | StrapiImage[];
   image_cover: string | StrapiImage | null;
   agente?: AgenteType;
+  location?: Location;
+};
+type Location = {
+  lat: number;
+  lng: number;
+  alt: number;
 };
 
 type AgenteType = {

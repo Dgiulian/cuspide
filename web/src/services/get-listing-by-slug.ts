@@ -1,15 +1,10 @@
 import { Property } from "@/domain/property";
-import { type SanityDocument } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { defineQuery } from "next-sanity";
 
-import {
-  projectId,
-  dataset,
-  fetchCollection,
-  SanityListing,
-} from "@/infrastructure/sanity";
-
+import { dataset, fetchCollection, projectId } from "@/infrastructure/sanity";
+import { LISTING_BY_SLUG_QUERYResult } from "@/sanity/types";
 const options = { next: { revalidate: 30 } };
 const urlFor = (source: SanityImageSource) =>
   projectId && dataset
@@ -17,7 +12,8 @@ const urlFor = (source: SanityImageSource) =>
     : null;
 
 export async function getListingBySlug(slug: string): Promise<Property | null> {
-  const LISTING_BY_SLUG_QUERY = `*[_type == "listing" && slug.current == $slug] | order(publishedAt desc)[0...12]
+  const LISTING_BY_SLUG_QUERY =
+    defineQuery(`*[_type == "listing" && slug.current == $slug][0]
   { _id, 
    title, 
    price,
@@ -39,11 +35,11 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
       city,
       state,
       price,
-      currency
+      currency,
       }
-    }`;
+    }`);
 
-  const sanityData = await fetchCollection<SanityDocument<SanityListing>>({
+  const sanityData = await fetchCollection<LISTING_BY_SLUG_QUERYResult>({
     query: LISTING_BY_SLUG_QUERY,
     params: { slug },
     options,
@@ -51,28 +47,31 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
 
   console.log({ sanityData, slug, LISTING_BY_SLUG_QUERY });
 
-  if (!sanityData.length) {
+  if (!sanityData) {
     return null;
   }
 
-  const d = sanityData[0];
+  const d = sanityData;
+
   const listingDetail: Property = {
     id: d._id,
-    slug: d.slug.current,
+    slug: d.slug?.current,
     images: [],
     title: d.title,
-    type: d.property.type,
-    rooms: d.property.rooms,
-    garage: d.property.garage,
-    location: null,
-    description: d.property.description,
-    bathrooms: d.property.bathrooms,
-    lot_size: d.property.lot_size,
+    type: d.property?.type,
+    rooms: d.property?.rooms,
+    garage: d.property?.garage,
+    location: d.property?.location,
+    description: d.property?.description,
+    bathrooms: d.property?.bathrooms,
+    lot_size: d.property?.lot_size,
     //   images: SanityImage;
     //   publishedAt: Date;
-    image_cover: urlFor(d.property.image_cover)?.url() ?? null,
-    city: d.property.city,
-    state: d.property.state,
+    image_cover: d.property?.image_cover
+      ? urlFor(d.property?.image_cover)?.url()
+      : null,
+    city: d.property?.city,
+    state: d.property?.state,
     price: d.price,
     currency: d.currency,
   };
