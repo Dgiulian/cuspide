@@ -6,13 +6,14 @@ import { Mapa } from "@/components/mapa";
 import PropertyDetails from "@/components/property-details";
 import { redirect } from "next/navigation";
 import { getListingBySlug } from "@/services/get-listing-by-slug";
-import { Location } from "@/domain/property";
+import { Geopoint } from "@/domain/property";
 
 interface Props {
   params: { listingSlug: string };
 }
 
-const DEFAULT_LOCATION: Location = {
+const DEFAULT_LOCATION: Geopoint = {
+  _type: "geopoint",
   lat: 0,
   lng: 0,
   alt: 0,

@@ -7,7 +7,7 @@ export interface Property {
   slug?: string;
   images?: string[];
   location?: Geopoint | null;
-  description?: unknown;
+  description?: BlockArrayContent | null;
   bathrooms?: number | null;
   lot_size?: number | null;
   publishedAt?: Date;
@@ -17,6 +17,25 @@ export interface Property {
   price?: number | null;
   currency?: "ars" | "usd" | null;
 }
+
+type BlockArrayContent = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+  listItem?: "bullet" | "number";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+}> | null;
 
 export type Geopoint = {
   _type: "geopoint";

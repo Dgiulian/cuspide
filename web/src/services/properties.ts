@@ -1,5 +1,4 @@
 import fetchApi from "@/lib/strapi";
-import { BlocksContent } from "@strapi/blocks-react-renderer";
 
 interface ProviderMetadata {
   public_id: string;
@@ -51,10 +50,10 @@ interface ImageFormat {
 
 export type PropiedadType = {
   id: string;
-  slug: string;
+  slug?: string | null;
   // documentId: string;
   title: string;
-  description: null | string | BlocksContent;
+  description: BlockArrayContent;
   // address: string;
   // addressNum: string;
   city?: string;
@@ -71,6 +70,25 @@ export type PropiedadType = {
   agente?: AgenteType;
   location?: Location;
 };
+type BlockArrayContent = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+  listItem?: "bullet" | "number";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+}> | null;
+
 type Location = {
   lat: number;
   lng: number;

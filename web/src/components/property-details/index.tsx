@@ -1,34 +1,33 @@
-import { Bed, Bath, Square, Phone, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import React from "react";
+import { Bath, Bed, Square } from "lucide-react";
+
+import { Property } from "@/domain/property";
+import { formatPrice } from "@/lib/utils";
+import BlockArrayRenderer from "../block-array-render";
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
 } from "../ui/card";
-import { PropiedadType } from "@/services/properties";
-import { formatPrice } from "@/lib/utils";
 
 interface Props {
-  property: PropiedadType;
+  property: Property;
 }
 
 const PropertyDetails = ({ property }: Props) => {
   return (
-    <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100">
-      <CardHeader>
+    <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 flex flex-col">
+      <CardHeader className=" flex-1">
         <CardTitle>Descripción</CardTitle>
         <CardDescription className="text-gray-400">
-          {/* propertyDetail?.description && (
-          <BlocksRenderer
-            content={propertyDetail.description as BlocksContent}
-          />
-        )*/}
+          {property?.description && (
+            <BlockArrayRenderer blockArrayContent={property.description} />
+          )}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="justify-self-end">
         <div className="flex justify-between items-center mb-4">
           <span className="text-2xl font-bold">
             {property.price
@@ -51,11 +50,11 @@ const PropertyDetails = ({ property }: Props) => {
           </div>
           <div className="flex items-center">
             <Square className="mr-2" />
-            <span>{property.built_surface} m²</span>
+            <span>{property.lot_size} m²</span>
           </div>
         </div>
 
-        {property.agente && (
+        {/* property.agente && (
           <div className="border-t border-gray-700 pt-4">
             <h3 className="font-semibold mb-2">Contactar al Agente</h3>
             <p className="font-medium">{property.agente?.name}</p>
@@ -68,7 +67,7 @@ const PropertyDetails = ({ property }: Props) => {
               <span>{property.agente?.email}</span>
             </div>
           </div>
-        )}
+        ) */}
       </CardContent>
     </Card>
   );
