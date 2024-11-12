@@ -45,18 +45,17 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
     options,
   });
 
-  console.log({ sanityData, slug, LISTING_BY_SLUG_QUERY });
-
   if (!sanityData) {
     return null;
   }
 
   const d = sanityData;
-
+  const propertyImages: string[] =
+    d.property?.images?.map((img) => urlFor(img)?.url() ?? "") ?? [];
   const listingDetail: Property = {
     id: d._id,
     slug: d.slug?.current,
-    images: [],
+    images: propertyImages,
     title: d.title,
     type: d.property?.type,
     rooms: d.property?.rooms,

@@ -5,7 +5,7 @@ export interface Property {
   rooms?: number | null;
   garage?: boolean | null;
   slug?: string;
-  images?: string[];
+  images?: string[] | null;
   location?: Geopoint | null;
   description?: BlockArrayContent | null;
   bathrooms?: number | null;
