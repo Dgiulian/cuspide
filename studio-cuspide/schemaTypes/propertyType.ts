@@ -29,10 +29,10 @@ export const propertyType = defineType({
       },
       validation: (rule) =>
         rule.required().custom((value) => {
-          if (value && ['casa', 'departamento', 'terreno', 'local'].includes(value)) {
+          if (value && ['casa', 'departamento', 'terreno', 'duplex', 'local'].includes(value)) {
             return true
           }
-          return 'Type debe ser casa, departamento, local o terreno'
+          return 'Type debe ser casa, departamento, duplex, local o terreno'
         }),
     }),
     defineField({
