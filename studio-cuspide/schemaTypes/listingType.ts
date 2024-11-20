@@ -54,7 +54,7 @@ export const listingType = defineType({
         ],
       },
       validation: (rule) =>
-        rule.required().custom((value) => {
+        rule.custom((value) => {
           if (value && ['usd', 'ars'].includes(value)) {
             return true
           }
