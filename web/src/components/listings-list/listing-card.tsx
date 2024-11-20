@@ -21,7 +21,7 @@ function ListingCard({ listing, isGridView }: Props) {
       <div className={`relative ${isGridView ? "h-56" : "h-full w-1/3"}`}>
         <Image
           src={getImageUrl(listing)}
-          alt={listing.title}
+          alt={listing.title ?? ""}
           layout="fill"
           objectFit="cover"
           className="rounded-t-lg"
@@ -34,7 +34,7 @@ function ListingCard({ listing, isGridView }: Props) {
         <CardContent>
           <p className="text-2xl font-bold">
             {listing.price
-              ? formatPrice(listing.price.toString(), listing.currency)
+              ? formatPrice(listing.price.toString(), listing.currency ?? "ars")
               : "Consultar precio"}
           </p>
           <p className="text-muted-foreground">

@@ -1,3 +1,4 @@
+import { Geopoint } from "@/domain/property";
 import fetchApi from "@/lib/strapi";
 
 interface ProviderMetadata {
@@ -52,23 +53,23 @@ export type PropiedadType = {
   id: string;
   slug?: string | null;
   // documentId: string;
-  title: string;
-  description: BlockArrayContent;
+  title: string | null;
+  description?: BlockArrayContent | null;
   // address: string;
   // addressNum: string;
-  city?: string;
-  state?: string;
-  price: number;
-  currency: "ars" | "usd";
+  city?: string | null;
+  state?: string | null;
+  price?: number | null;
+  currency?: "ars" | "usd" | null;
   // highlight: boolean;
-  rooms: number;
-  bathrooms: number;
-  lot_size?: number;
+  rooms?: number | null;
+  bathrooms?: number | null;
+  lot_size?: number | null;
   built_surface?: number;
-  images: string[] | StrapiImage[];
-  image_cover: string | StrapiImage | null;
+  images?: string[] | StrapiImage[] | null;
+  image_cover?: string | StrapiImage | null;
   agente?: AgenteType;
-  location?: Location;
+  location?: Geopoint | null;
 };
 type BlockArrayContent = Array<{
   children?: Array<{
@@ -88,12 +89,6 @@ type BlockArrayContent = Array<{
   _type: "block";
   _key: string;
 }> | null;
-
-type Location = {
-  lat: number;
-  lng: number;
-  alt: number;
-};
 
 type AgenteType = {
   id: number;

@@ -7,7 +7,7 @@ import ListingCard from "@/components/listings-list/listing-card";
 import { getFeaturedProperties } from "@/services/get-featured-properties";
 
 export default async function HomePage() {
-  const featuredProperties = await getFeaturedProperties();
+  const featuredProperties = (await getFeaturedProperties()) ?? [];
   return (
     <>
       <HeroSection />
