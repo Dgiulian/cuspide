@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 import { Mapa } from "@/components/mapa";
 import PropertyDetails from "@/components/property-details";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getListingBySlug } from "@/services/get-listing-by-slug";
 import { Geopoint } from "@/domain/property";
 
@@ -19,15 +19,37 @@ const DEFAULT_LOCATION: Geopoint = {
   alt: 0,
 };
 
+// export const metadata = {
+//   title: "Cuspide Bienes Raices | ",
+// };
+
+// or dynamically
+export async function generateMetadata({
+  params,
+}: {
+  params: { listingSlug: string };
+}) {
+  const { listingSlug } = params;
+
+  const propertyDetail = await getListingBySlug(listingSlug);
+
+  return {
+    title: `Cuspide Bienes Raices | ${propertyDetail?.title}`,
+    openGraph: {
+      // images: ['/some-specific-page-image.jpg'],
+    },
+  };
+}
+
 export default async function DetallePage({ params }: Props) {
   const { listingSlug } = params;
 
-  if (!listingSlug) return redirect("/404");
+  if (!listingSlug) return notFound();
 
   const propertyDetail = await getListingBySlug(listingSlug);
-  if (!propertyDetail) return redirect("/404");
+  if (!propertyDetail) return notFound();
 
-  console.log(propertyDetail.images);
+  console.log(propertyDetail.location);
 
   return (
     <>
@@ -52,7 +74,7 @@ export default async function DetallePage({ params }: Props) {
               {propertyDetail.city && (
                 <div className="mt-4 flex items-center">
                   <MapPin className="mr-2" size={16} />
-                  <span>{`${propertyDetail.city}, ${propertyDetail.state}`}</span>
+                  <span>{`${propertyDetail.city}, ${propertyDetail.state ?? ""}`}</span>
                 </div>
               )}
             </CardContent>

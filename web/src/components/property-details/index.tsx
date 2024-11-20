@@ -42,11 +42,13 @@ const PropertyDetails = ({ property }: Props) => {
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div className="flex items-center">
             <Bed className="mr-2" />
-            <span>{property.rooms} Habitaciones</span>
+            <span>
+              {`${property.rooms} ${property.rooms === 1 ? "Habitación" : "Habitaciones"}`}{" "}
+            </span>
           </div>
           <div className="flex items-center">
             <Bath className="mr-2" />
-            <span>{property.bathrooms} Baños</span>
+            <span>{`${property.bathrooms} ${property.bathrooms === 1 ? "Baño" : "Baños"}`}</span>
           </div>
           <div className="flex items-center">
             <Square className="mr-2" />

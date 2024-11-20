@@ -50,12 +50,25 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
   }
 
   const d = sanityData;
-  const propertyImages: string[] =
-    d.property?.images?.map((img) => urlFor(img)?.url() ?? "") ?? [];
+
+  const propertyImages = d.property?.images ?? [];
+  const parsedImages: string[] = [];
+  for (const img of propertyImages) {
+    try {
+      const parsedUrl = urlFor(img)?.url();
+      if (parsedUrl) {
+        parsedImages.push(parsedUrl);
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  //.map((img) =>?? "") ?? [];
   const listingDetail: Property = {
     id: d._id,
     slug: d.slug?.current,
-    images: propertyImages,
+    images: parsedImages,
     title: d.title,
     type: d.property?.type,
     rooms: d.property?.rooms,
@@ -64,8 +77,6 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
     description: d.property?.description,
     bathrooms: d.property?.bathrooms,
     lot_size: d.property?.lot_size,
-    //   images: SanityImage;
-    //   publishedAt: Date;
     image_cover: d.property?.image_cover
       ? urlFor(d.property?.image_cover)?.url()
       : null,

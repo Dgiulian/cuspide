@@ -13,7 +13,7 @@ export function Mapa({ location }: MapaProps) {
       initialViewState={{
         longitude: location.lng,
         latitude: location.lat,
-        zoom: 14,
+        zoom: location.alt ?? 14,
       }}
       style={{ width: 600, height: 400 }}
       mapStyle="https://tiles.openfreemap.org/styles/liberty"
