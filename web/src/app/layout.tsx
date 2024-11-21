@@ -30,7 +30,7 @@ export default function RootLayout({
     <html lang="en" className="darka">
       <head>
         <meta charSet="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="viewport" content="width=device-width" />
         <link
           href="https://unpkg.com/maplibre-gl@4.7.1>/dist/maplibre-gl.css"
