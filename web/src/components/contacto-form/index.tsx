@@ -28,10 +28,10 @@ export function ContactForm() {
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      name: "Diego",
-      email: "giuliani.diego@gmail.com",
+      name: "",
+      email: "",
       phone: "",
-      message: "First contact form",
+      message: "",
     },
   });
 
