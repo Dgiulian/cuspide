@@ -22,8 +22,7 @@ function ListingCard({ listing, isGridView }: Props) {
         <Image
           src={getImageUrl(listing)}
           alt={listing.title ?? ""}
-          layout="fill"
-          objectFit="cover"
+          fill
           className="rounded-t-lg"
         />
       </div>

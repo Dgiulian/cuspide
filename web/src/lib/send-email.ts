@@ -5,8 +5,8 @@ import Mailgun from "mailgun.js";
 interface SendMailProps {
   subject: string;
   sendTo: string[];
-  text: string;
-  html: string;
+  text?: string;
+  html?: string;
 }
 export async function sendMail({
   sendTo,
@@ -22,16 +22,13 @@ export async function sendMail({
     key: env.MAILGUN_API_KEY,
   });
   try {
-    await mg.messages.create(
-      "sandbox53d4ca814c044886b1586b0515b71a85.mailgun.org",
-      {
-        from: "Cuspide BR <mailgun@sandbox53d4ca814c044886b1586b0515b71a85.mailgun.org>",
-        to: sendTo,
-        subject: subject,
-        text: text,
-        html: html,
-      }
-    );
+    await mg.messages.create("mail.cuspidebr.com.ar", {
+      from: "Cuspide BR <contacto@mail.cuspidebr.com.ar >",
+      to: sendTo,
+      subject: subject,
+      text: text ?? "",
+      html: html ?? "",
+    });
     return {
       status: "success",
     };

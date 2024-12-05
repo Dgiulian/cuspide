@@ -1,3 +1,5 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { SubmitButton } from "./submit-button";
+import { useActionState } from "react";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: "Ingrese su nombre" }),
@@ -24,7 +27,18 @@ const contactFormSchema = z.object({
     message: "El mensaje debe tener por lo menos 10 caracteres",
   }),
 });
+
+const initialState = {
+  success: false,
+  message: "",
+};
 export function ContactForm() {
+  const [state, formAction, isPending] = useActionState(
+    sendContactMessage,
+    initialState
+  );
+  // const [state, formAction] = useActionState(increment, 0);
+
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
@@ -34,10 +48,17 @@ export function ContactForm() {
       message: "",
     },
   });
-
+  if (!isPending && state.success) {
+    return (
+      <p>
+        El formulario de envio corrrectamente. Nos pondremos en contacto con
+        usted a la brevedad.
+      </p>
+    );
+  }
   return (
     <Form {...form}>
-      <form className="space-y-6" action={sendContactMessage}>
+      <form className="space-y-6" action={formAction}>
         <div className="space-y-2">
           <Label htmlFor="nombre" className="dark:text-gray-300">
             Nombre
@@ -128,6 +149,9 @@ export function ContactForm() {
             )}
           />
         </div>
+        <p aria-live="polite" className="sr-only" role="status">
+          {state?.message}
+        </p>
         <SubmitButton />
       </form>
     </Form>

@@ -49,8 +49,6 @@ export default async function DetallePage({ params }: Props) {
   const propertyDetail = await getListingBySlug(listingSlug);
   if (!propertyDetail) return notFound();
 
-  console.log(propertyDetail.location);
-
   return (
     <>
       <div className="container mx-auto px-4 py-8 dark:bg-gray-900 dark:text-gray-100">
