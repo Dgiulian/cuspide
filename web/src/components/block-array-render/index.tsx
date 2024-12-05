@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { PortableText, PortableTextComponents } from "next-sanity";
+import Image from "next/image";
 
 // Define types for the Sanity block array content
 interface BlockArrayContent {
@@ -13,7 +14,7 @@ const myPortableTextComponents: PortableTextComponents = {
   // Customize specific block types (e.g., images, code blocks)
   types: {
     image: ({ value }: { value: { url: string; alt?: string } }) => (
-      <img
+      <Image
         src={value.url}
         alt={value.alt || "Image"}
         style={{ maxWidth: "100%" }}
