@@ -7,11 +7,11 @@ import PropertyDetails from "@/components/property-details";
 import { notFound } from "next/navigation";
 import { getListingBySlug } from "@/services/get-listing-by-slug";
 import { Geopoint } from "@/domain/property";
+import type { Metadata } from "next";
 
 interface Props {
-  params: { listingSlug: string };
+  params: Promise<{ listingSlug: string }>;
 }
-
 const DEFAULT_LOCATION: Geopoint = {
   _type: "geopoint",
   lat: 0,
@@ -24,12 +24,8 @@ const DEFAULT_LOCATION: Geopoint = {
 // };
 
 // or dynamically
-export async function generateMetadata({
-  params,
-}: {
-  params: { listingSlug: string };
-}) {
-  const { listingSlug } = params;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { listingSlug } = await params;
 
   const propertyDetail = await getListingBySlug(listingSlug);
 
@@ -42,7 +38,7 @@ export async function generateMetadata({
 }
 
 export default async function DetallePage({ params }: Props) {
-  const { listingSlug } = params;
+  const { listingSlug } = await params;
 
   if (!listingSlug) return notFound();
 
