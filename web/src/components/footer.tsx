@@ -13,10 +13,13 @@ export default function Footer() {
           <p className="text-sm">Seguinos en</p>
 
           <div className="flex justify-center space-x-2">
-            <a href="https://www.facebook.com/CuspideBr">
+            <a href="https://www.facebook.com/CuspideBr" target="_blank">
               <FacebookIcon width={24} height={24} />
             </a>
-            <a href="https://www.instagram.com/cuspide.neuquen/">
+            <a
+              href="https://www.instagram.com/cuspide.neuquen/"
+              target="_blank"
+            >
               <InstagramIcon width={24} height={24} />
             </a>
           </div>
