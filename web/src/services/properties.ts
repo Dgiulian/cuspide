@@ -1,4 +1,4 @@
-import { Geopoint } from "@/domain/property";
+import { Geopoint, TypeOfProperty } from "@/domain/property";
 import fetchApi from "@/lib/strapi";
 
 interface ProviderMetadata {
@@ -71,6 +71,7 @@ export type PropiedadType = {
   agente?: AgenteType;
   location?: Geopoint | null;
   featured: boolean;
+  type: TypeOfProperty | null;
 };
 type BlockArrayContent = Array<{
   children?: Array<{

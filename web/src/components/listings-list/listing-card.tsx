@@ -9,6 +9,7 @@ import {
   CardFooter,
 } from "../ui/card";
 import Image from "next/image";
+import { ListingFeatures } from "./listing-features";
 
 type Props = {
   listing: Omit<PropiedadType, "description">;
@@ -30,12 +31,6 @@ function ListingCard({ listing, isGridView }: Props) {
             Destacada
           </span>
         ) : null}
-
-        {/* <Star
-          width={50}
-          height={80}
-          className="absolute z-10 text-amber-400 right-4"
-        /> */}
       </div>
       <div className={isGridView ? "" : "w-2/3"}>
         <CardHeader>
@@ -47,10 +42,7 @@ function ListingCard({ listing, isGridView }: Props) {
               ? formatPrice(listing.price.toString(), listing.currency ?? "ars")
               : "Consultar precio"}
           </p>
-          <p className="text-muted-foreground">
-            {listing.rooms} habitaciones • {listing.bathrooms} baños •{" "}
-            {listing.built_surface} mt2
-          </p>
+          <ListingFeatures listing={listing} />
         </CardContent>
         <CardFooter>
           <a
