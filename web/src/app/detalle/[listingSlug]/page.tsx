@@ -19,22 +19,44 @@ const DEFAULT_LOCATION: Geopoint = {
   alt: 0,
 };
 
-// export const metadata = {
-//   title: "Cuspide Bienes Raices | ",
-// };
-
 // or dynamically
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { listingSlug } = await params;
 
   const propertyDetail = await getListingBySlug(listingSlug);
+  const title = `Cuspide Bienes Raices | ${propertyDetail?.title ?? ""}`;
+  const description = "";
+  const imageUrl = propertyDetail?.image_cover;
 
-  return {
-    title: `Cuspide Bienes Raices | ${propertyDetail?.title}`,
+  const metaData = {
+    title: `${propertyDetail?.title ?? ""} | Cuspide Bienes Raices`,
+    description: description,
     openGraph: {
-      // images: ['/some-specific-page-image.jpg'],
+      title: title,
+      description: description,
+      url: `https://cuspidebr.com.ar/${listingSlug}`,
+      siteName: "Cuspiude Bienes Raices",
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : [],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      // description: pageData.description,
+      images: imageUrl ? [imageUrl] : [],
     },
   };
+
+  return metaData;
 }
 
 export default async function DetallePage({ params }: Props) {
