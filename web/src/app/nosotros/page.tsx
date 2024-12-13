@@ -12,10 +12,10 @@ export default function NosotrosPage() {
             Nuestra Historia
           </h3>
           <p className="dark:text-gray-300">
-            Fundada en 2024, Cuspide Bienes Raices ha sido líder en el mercado
-            inmobiliario local durante más de 15 años. Nuestra pasión por ayudar
-            a las personas a encontrar su hogar ideal nos ha convertido en la
-            agencia de confianza para miles de clientes satisfechos.
+            Fundada en Neuquén Capital, Cuspide Bienes Raices líder en el
+            mercado inmobiliario local. Nuestra pasión por ayudar a las personas
+            a encontrar su hogar ideal nos ha convertido en la agencia de
+            confianza contamos con clientes calificados.
           </p>
         </div>
         <div>
@@ -38,12 +38,7 @@ export default function NosotrosPage() {
           Nuestros Logros
         </h3>
         <ul className="list-disc list-inside dark:text-gray-300">
-          <li>Más de 10,000 propiedades vendidas</li>
-          <li>
-            Galardonados como &quot;Mejor Agencia Inmobiliaria&quot; en 2020 y
-            2021
-          </li>
-          <li>98% de satisfacción del cliente</li>
+          <li>100% de satisfacción del cliente</li>
           <li>Presencia en 5 ciudades principales</li>
         </ul>
       </div>
