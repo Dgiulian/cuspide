@@ -5,6 +5,39 @@ import { ContactUsSection } from "@/components/contact-us-section";
 import { HeroSection } from "@/components/hero-section";
 import ListingCard from "@/components/listings-list/listing-card";
 import { getFeaturedProperties } from "@/services/get-featured-properties";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const title = "Cuspide Bienes Raices";
+  const description = "";
+  return {
+    title,
+    description,
+    openGraph: {
+      title: title,
+      description: description,
+      url: `https://cuspidebr.com.ar/`,
+      siteName: "Cuspiude Bienes Raices",
+      images: [
+        {
+          url: "https://res.cloudinary.com/dsm3kqzwd/image/upload/v1734053129/cuspide-logo_gl4pu3.jpg",
+          width: 917,
+          height: 530,
+          alt: title,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      // description: pageData.description,
+      images: [
+        "https://res.cloudinary.com/dsm3kqzwd/image/upload/v1734053129/cuspide-logo_gl4pu3.jpg",
+      ],
+    },
+  };
+}
 
 export default async function HomePage() {
   const featuredProperties = (await getFeaturedProperties()) ?? [];
