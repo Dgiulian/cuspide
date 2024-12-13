@@ -13,12 +13,13 @@ const urlFor = (source: SanityImageSource) =>
 
 const ALL_LISTINGS_QUERY = defineQuery(`*[
       _type == "listing"
-    ]|order(publishedAt desc)[0...12]
+    ]|order(featured, publishedAt desc)[0...12]
     { _id, 
      title, 
      price,
      currency,
      slug,
+     featured,
      property-> { 
         _id,
         title,
@@ -73,6 +74,7 @@ export async function getAllListings(): Promise<Property[] | null> {
     state: d.property?.state,
     price: d.price,
     currency: d.currency,
+    featured: d.featured,
   }));
 
   return allListings;

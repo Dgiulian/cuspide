@@ -16,6 +16,7 @@ export interface Property {
   state?: string | null;
   price?: number | null;
   currency?: "ars" | "usd" | null;
+  featured: boolean | null;
 }
 
 type BlockArrayContent = Array<{

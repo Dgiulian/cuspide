@@ -39,7 +39,7 @@ export default function PropertiesListToggle({
             <CardContent>
               <p className="text-2xl font-bold">{listing.price}</p>
               <p className="text-muted-foreground">
-                {listing.rooms} beds • {listing.bathrooms} baths •{" "}
+                {listing.rooms} habitaciones • {listing.bathrooms} baños •{" "}
                 {listing.land_surface} mt2
               </p>
             </CardContent>

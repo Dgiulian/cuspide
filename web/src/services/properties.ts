@@ -70,6 +70,7 @@ export type PropiedadType = {
   image_cover?: string | StrapiImage | null;
   agente?: AgenteType;
   location?: Geopoint | null;
+  featured: boolean;
 };
 type BlockArrayContent = Array<{
   children?: Array<{

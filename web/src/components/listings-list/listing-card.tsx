@@ -25,6 +25,17 @@ function ListingCard({ listing, isGridView }: Props) {
           fill
           className="rounded-t-lg"
         />
+        {listing.featured ? (
+          <span className="absolute inline-block z-10 uppercase font-bold text-sm bg-blue-600 bottom-[-12px] right-1 px-2 text-white">
+            Destacada
+          </span>
+        ) : null}
+
+        {/* <Star
+          width={50}
+          height={80}
+          className="absolute z-10 text-amber-400 right-4"
+        /> */}
       </div>
       <div className={isGridView ? "" : "w-2/3"}>
         <CardHeader>
@@ -37,7 +48,7 @@ function ListingCard({ listing, isGridView }: Props) {
               : "Consultar precio"}
           </p>
           <p className="text-muted-foreground">
-            {listing.rooms} beds • {listing.bathrooms} baños •{" "}
+            {listing.rooms} habitaciones • {listing.bathrooms} baños •{" "}
             {listing.built_surface} mt2
           </p>
         </CardContent>

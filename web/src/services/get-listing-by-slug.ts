@@ -19,6 +19,7 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
    price,
    currency,
    slug,
+   featured,
    property-> { 
       _id,
       title,
@@ -84,6 +85,7 @@ export async function getListingBySlug(slug: string): Promise<Property | null> {
     state: d.property?.state,
     price: d.price,
     currency: d.currency,
+    featured: d.featured,
   };
 
   return listingDetail;
