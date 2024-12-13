@@ -52,16 +52,12 @@ interface ImageFormat {
 export type PropiedadType = {
   id: string;
   slug?: string | null;
-  // documentId: string;
   title: string | null;
   description?: BlockArrayContent | null;
-  // address: string;
-  // addressNum: string;
   city?: string | null;
   state?: string | null;
   price?: number | null;
   currency?: "ars" | "usd" | null;
-  // highlight: boolean;
   rooms?: number | null;
   bathrooms?: number | null;
   lot_size?: number | null;
@@ -70,8 +66,8 @@ export type PropiedadType = {
   image_cover?: string | StrapiImage | null;
   agente?: AgenteType;
   location?: Geopoint | null;
-  featured: boolean;
-  type: TypeOfProperty | null;
+  featured?: boolean | null;
+  type?: TypeOfProperty | null;
 };
 type BlockArrayContent = Array<{
   children?: Array<{
