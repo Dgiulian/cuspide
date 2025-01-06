@@ -248,7 +248,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/services/get-all-listings.ts
 // Variable: ALL_LISTINGS_QUERY
-// Query: *[      _type == "listing"    ]|order(featured, publishedAt desc)[0...12]    { _id,      title,      price,     currency,     slug,     featured,     property-> {         _id,        title,        type,        description,        rooms,        bathrooms,        lot_size,        garage,        slug,        publishedAt,        image_cover,        images,        location,        city,        state,        price,        currency        }      }
+// Query: *[      _type == "listing"    ]|order(featured, publishedAt desc)    { _id,      title,      price,     currency,     slug,     featured,     property-> {         _id,        title,        type,        description,        rooms,        bathrooms,        lot_size,        garage,        slug,        publishedAt,        image_cover,        images,        location,        city,        state,        price,        currency        }      }
 export type ALL_LISTINGS_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -317,7 +317,7 @@ export type ALL_LISTINGS_QUERYResult = Array<{
 
 // Source: ./src/services/get-featured-properties.ts
 // Variable: FEATURED_PROPERTIES_QUERY
-// Query: *[    _type == "listing" && featured == true  ]|order(publishedAt desc)[0...12]  { _id,    title,    price,   currency,   slug,   featured,   property-> {       _id,      title,      type,      description,      rooms,      bathrooms,      lot_size,      garage,      slug,      publishedAt,      image_cover,      images,      location,      city,      state,      price,      currency      }    }
+// Query: *[    _type == "listing" && featured == true  ]|order(publishedAt desc)  { _id,    title,    price,   currency,   slug,   featured,   property-> {       _id,      title,      type,      description,      rooms,      bathrooms,      lot_size,      garage,      slug,      publishedAt,      image_cover,      images,      location,      city,      state,      price,      currency      }    }
 export type FEATURED_PROPERTIES_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -456,8 +456,8 @@ export type LISTING_BY_SLUG_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[\n      _type == \"listing\"\n    ]|order(featured, publishedAt desc)[0...12]\n    { _id, \n     title, \n     price,\n     currency,\n     slug,\n     featured,\n     property-> { \n        _id,\n        title,\n        type,\n        description,\n        rooms,\n        bathrooms,\n        lot_size,\n        garage,\n        slug,\n        publishedAt,\n        image_cover,\n        images,\n        location,\n        city,\n        state,\n        price,\n        currency\n        }\n      }": ALL_LISTINGS_QUERYResult;
-    "*[\n    _type == \"listing\" && featured == true\n  ]|order(publishedAt desc)[0...12]\n  { _id, \n   title, \n   price,\n   currency,\n   slug,\n   featured,\n   property-> { \n      _id,\n      title,\n      type,\n      description,\n      rooms,\n      bathrooms,\n      lot_size,\n      garage,\n      slug,\n      publishedAt,\n      image_cover,\n      images,\n      location,\n      city,\n      state,\n      price,\n      currency\n      }\n    }": FEATURED_PROPERTIES_QUERYResult;
+    "*[\n      _type == \"listing\"\n    ]|order(featured, publishedAt desc)\n    { _id, \n     title, \n     price,\n     currency,\n     slug,\n     featured,\n     property-> { \n        _id,\n        title,\n        type,\n        description,\n        rooms,\n        bathrooms,\n        lot_size,\n        garage,\n        slug,\n        publishedAt,\n        image_cover,\n        images,\n        location,\n        city,\n        state,\n        price,\n        currency\n        }\n      }": ALL_LISTINGS_QUERYResult;
+    "*[\n    _type == \"listing\" && featured == true\n  ]|order(publishedAt desc)\n  { _id, \n   title, \n   price,\n   currency,\n   slug,\n   featured,\n   property-> { \n      _id,\n      title,\n      type,\n      description,\n      rooms,\n      bathrooms,\n      lot_size,\n      garage,\n      slug,\n      publishedAt,\n      image_cover,\n      images,\n      location,\n      city,\n      state,\n      price,\n      currency\n      }\n    }": FEATURED_PROPERTIES_QUERYResult;
     "*[_type == \"listing\" && slug.current == $slug][0]\n  { _id, \n   title, \n   price,\n   currency,\n   slug,\n   featured,\n   property-> { \n      _id,\n      title,\n      type,\n      description,\n      rooms,\n      bathrooms,\n      lot_size,\n      garage,\n      publishedAt,\n      image_cover,\n      images,\n      location,\n      city,\n      state,\n      price,\n      currency,\n      }\n    }": LISTING_BY_SLUG_QUERYResult;
   }
 }

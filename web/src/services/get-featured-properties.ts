@@ -14,7 +14,7 @@ const urlFor = (source: SanityImageSource) =>
 export async function getFeaturedProperties(): Promise<Property[] | null> {
   const FEATURED_PROPERTIES_QUERY = defineQuery(`*[
     _type == "listing" && featured == true
-  ]|order(publishedAt desc)[0...12]
+  ]|order(publishedAt desc)
   { _id, 
    title, 
    price,

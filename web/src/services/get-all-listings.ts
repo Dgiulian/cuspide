@@ -13,7 +13,7 @@ const urlFor = (source: SanityImageSource) =>
 
 const ALL_LISTINGS_QUERY = defineQuery(`*[
       _type == "listing"
-    ]|order(featured, publishedAt desc)[0...12]
+    ]|order(featured, publishedAt desc)
     { _id, 
      title, 
      price,
