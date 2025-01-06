@@ -15,7 +15,7 @@ export function ListingFeatures({ listing }: ListingFeaturesProps) {
 
   return (
     <p className="text-muted-foreground">
-      {listing.rooms} {listing.rooms === 1 ? "Habitación" : "Habitaciones"} •
+      {listing.rooms} {listing.rooms === 1 ? "Habitación" : "Habitaciones"} •{" "}
       {listing.bathrooms} {listing.bathrooms === 1 ? "Baño" : "Baños"}{" "}
       {listing.lot_size ? (
         <span>
