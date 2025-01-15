@@ -7,7 +7,7 @@ export const listingType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'titulo',
+      title: 'Titulo',
       type: 'string',
     }),
     defineField({
@@ -46,6 +46,7 @@ export const listingType = defineType({
     }),
     defineField({
       name: 'currency',
+      title: 'Moneda',
       type: 'string',
       options: {
         list: [
@@ -61,7 +62,20 @@ export const listingType = defineType({
           return 'Type debe ser USD o ARS'
         }),
     }),
-
+    defineField({
+      name: 'status',
+      type: 'string',
+      title: 'Estado',
+      initialValue: 'disponible',
+      options: {
+        list: [
+          {title: 'Disponible', value: 'disponible'},
+          {title: 'Vendido', value: 'vendida'},
+          {title: 'Reservado', value: 'reservada'},
+          {title: 'No disponible', value: 'no_disponible'},
+        ],
+      },
+    }),
     defineField({
       name: 'price',
       title: 'Precio',
