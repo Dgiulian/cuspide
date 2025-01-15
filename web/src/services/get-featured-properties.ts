@@ -21,6 +21,7 @@ export async function getFeaturedProperties(): Promise<Property[] | null> {
    currency,
    slug,
    featured,
+   status,
    property-> { 
       _id,
       title,
@@ -30,15 +31,12 @@ export async function getFeaturedProperties(): Promise<Property[] | null> {
       bathrooms,
       lot_size,
       garage,
-      slug,
       publishedAt,
       image_cover,
       images,
       location,
       city,
       state,
-      price,
-      currency
       }
     }`);
 
@@ -73,6 +71,7 @@ export async function getFeaturedProperties(): Promise<Property[] | null> {
     price: d.price,
     currency: d.currency,
     featured: d.featured,
+    status: d.status,
   }));
 
   return featuredProperties;

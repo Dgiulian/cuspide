@@ -248,7 +248,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/services/get-all-listings.ts
 // Variable: ALL_LISTINGS_QUERY
-// Query: *[      _type == "listing"    ]|order(featured, publishedAt desc)    { _id,      title,      price,     currency,     slug,     featured,     property-> {         _id,        title,        type,        description,        rooms,        bathrooms,        lot_size,        garage,        slug,        publishedAt,        image_cover,        images,        location,        city,        state,        price,        currency        }      }
+// Query: *[      _type == "listing"    ]|order(featured, publishedAt desc)    { _id,      title,      price,     currency,     slug,     featured,     status,     property-> {         _id,        title,        type,        description,        rooms,        bathrooms,        lot_size,        garage,        slug,        publishedAt,        image_cover,        images,        location,        city,        state,        }      }
 export type ALL_LISTINGS_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -256,6 +256,7 @@ export type ALL_LISTINGS_QUERYResult = Array<{
   currency: "ars" | "usd" | null;
   slug: Slug | null;
   featured: boolean | null;
+  status: null;
   property: {
     _id: string;
     title: string | null;
@@ -310,14 +311,12 @@ export type ALL_LISTINGS_QUERYResult = Array<{
     location: Geopoint | null;
     city: string | null;
     state: null;
-    price: null;
-    currency: null;
   } | null;
 }>;
 
 // Source: ./src/services/get-featured-properties.ts
 // Variable: FEATURED_PROPERTIES_QUERY
-// Query: *[    _type == "listing" && featured == true  ]|order(publishedAt desc)  { _id,    title,    price,   currency,   slug,   featured,   property-> {       _id,      title,      type,      description,      rooms,      bathrooms,      lot_size,      garage,      slug,      publishedAt,      image_cover,      images,      location,      city,      state,      price,      currency      }    }
+// Query: *[    _type == "listing" && featured == true  ]|order(publishedAt desc)  { _id,    title,    price,   currency,   slug,   featured,   status,   property-> {       _id,      title,      type,      description,      rooms,      bathrooms,      lot_size,      garage,      publishedAt,      image_cover,      images,      location,      city,      state,      }    }
 export type FEATURED_PROPERTIES_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -325,6 +324,7 @@ export type FEATURED_PROPERTIES_QUERYResult = Array<{
   currency: "ars" | "usd" | null;
   slug: Slug | null;
   featured: boolean | null;
+  status: null;
   property: {
     _id: string;
     title: string | null;
@@ -351,7 +351,6 @@ export type FEATURED_PROPERTIES_QUERYResult = Array<{
     bathrooms: number | null;
     lot_size: number | null;
     garage: boolean | null;
-    slug: null;
     publishedAt: string | null;
     image_cover: {
       asset?: {
@@ -379,14 +378,12 @@ export type FEATURED_PROPERTIES_QUERYResult = Array<{
     location: Geopoint | null;
     city: string | null;
     state: null;
-    price: null;
-    currency: null;
   } | null;
 }>;
 
 // Source: ./src/services/get-listing-by-slug.ts
 // Variable: LISTING_BY_SLUG_QUERY
-// Query: *[_type == "listing" && slug.current == $slug][0]  { _id,    title,    price,   currency,   slug,   featured,   property-> {       _id,      title,      type,      description,      rooms,      bathrooms,      lot_size,      garage,      publishedAt,      image_cover,      images,      location,      city,      state,      price,      currency,      }    }
+// Query: *[_type == "listing" && slug.current == $slug][0]  { _id,    title,    price,   currency,   slug,   featured,   status,   property-> {       _id,      title,      type,      description,      rooms,      bathrooms,      lot_size,      garage,      publishedAt,      image_cover,      images,      location,      city,      state,      }    }
 export type LISTING_BY_SLUG_QUERYResult = {
   _id: string;
   title: string | null;
@@ -394,6 +391,7 @@ export type LISTING_BY_SLUG_QUERYResult = {
   currency: "ars" | "usd" | null;
   slug: Slug | null;
   featured: boolean | null;
+  status: null;
   property: {
     _id: string;
     title: string | null;
@@ -447,8 +445,6 @@ export type LISTING_BY_SLUG_QUERYResult = {
     location: Geopoint | null;
     city: string | null;
     state: null;
-    price: null;
-    currency: null;
   } | null;
 } | null;
 
@@ -456,8 +452,8 @@ export type LISTING_BY_SLUG_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[\n      _type == \"listing\"\n    ]|order(featured, publishedAt desc)\n    { _id, \n     title, \n     price,\n     currency,\n     slug,\n     featured,\n     property-> { \n        _id,\n        title,\n        type,\n        description,\n        rooms,\n        bathrooms,\n        lot_size,\n        garage,\n        slug,\n        publishedAt,\n        image_cover,\n        images,\n        location,\n        city,\n        state,\n        price,\n        currency\n        }\n      }": ALL_LISTINGS_QUERYResult;
-    "*[\n    _type == \"listing\" && featured == true\n  ]|order(publishedAt desc)\n  { _id, \n   title, \n   price,\n   currency,\n   slug,\n   featured,\n   property-> { \n      _id,\n      title,\n      type,\n      description,\n      rooms,\n      bathrooms,\n      lot_size,\n      garage,\n      slug,\n      publishedAt,\n      image_cover,\n      images,\n      location,\n      city,\n      state,\n      price,\n      currency\n      }\n    }": FEATURED_PROPERTIES_QUERYResult;
-    "*[_type == \"listing\" && slug.current == $slug][0]\n  { _id, \n   title, \n   price,\n   currency,\n   slug,\n   featured,\n   property-> { \n      _id,\n      title,\n      type,\n      description,\n      rooms,\n      bathrooms,\n      lot_size,\n      garage,\n      publishedAt,\n      image_cover,\n      images,\n      location,\n      city,\n      state,\n      price,\n      currency,\n      }\n    }": LISTING_BY_SLUG_QUERYResult;
+    "*[\n      _type == \"listing\"\n    ]|order(featured, publishedAt desc)\n    { _id, \n     title, \n     price,\n     currency,\n     slug,\n     featured,\n     status,\n     property-> { \n        _id,\n        title,\n        type,\n        description,\n        rooms,\n        bathrooms,\n        lot_size,\n        garage,\n        slug,\n        publishedAt,\n        image_cover,\n        images,\n        location,\n        city,\n        state,\n        }\n      }": ALL_LISTINGS_QUERYResult;
+    "*[\n    _type == \"listing\" && featured == true\n  ]|order(publishedAt desc)\n  { _id, \n   title, \n   price,\n   currency,\n   slug,\n   featured,\n   status,\n   property-> { \n      _id,\n      title,\n      type,\n      description,\n      rooms,\n      bathrooms,\n      lot_size,\n      garage,\n      publishedAt,\n      image_cover,\n      images,\n      location,\n      city,\n      state,\n      }\n    }": FEATURED_PROPERTIES_QUERYResult;
+    "*[_type == \"listing\" && slug.current == $slug][0]\n  { _id, \n   title, \n   price,\n   currency,\n   slug,\n   featured,\n   status,\n   property-> { \n      _id,\n      title,\n      type,\n      description,\n      rooms,\n      bathrooms,\n      lot_size,\n      garage,\n      publishedAt,\n      image_cover,\n      images,\n      location,\n      city,\n      state,\n      }\n    }": LISTING_BY_SLUG_QUERYResult;
   }
 }

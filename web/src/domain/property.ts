@@ -17,6 +17,7 @@ export interface Property {
   price?: number | null;
   currency?: "ars" | "usd" | null;
   featured: boolean | null;
+  status?: "disponible" | "no_disponible" | "vendida" | "reservada" | null;
 }
 
 type BlockArrayContent = Array<{

@@ -17,6 +17,7 @@ type Props = {
 };
 
 function ListingCard({ listing, isGridView }: Props) {
+  console.log(listing.status);
   return (
     <Card className={isGridView ? "" : "flex flex-row"}>
       <div className={`relative ${isGridView ? "h-56" : "h-full w-1/3"}`}>
@@ -26,6 +27,12 @@ function ListingCard({ listing, isGridView }: Props) {
           fill
           className="rounded-t-lg"
         />
+        <span className="absolute inline-block z-10 text-xl capitalize bg-red-600 top-[-12px] right-1 px-2 text-white">
+          {listing.status && listing.status !== "disponible"
+            ? listing.status.replace("_", " ")
+            : null}
+        </span>
+
         {listing.featured ? (
           <span className="absolute inline-block z-10 uppercase font-bold text-sm bg-blue-600 bottom-[-12px] right-1 px-2 text-white">
             Destacada

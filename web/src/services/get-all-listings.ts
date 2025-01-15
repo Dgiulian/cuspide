@@ -20,6 +20,7 @@ const ALL_LISTINGS_QUERY = defineQuery(`*[
      currency,
      slug,
      featured,
+     status,
      property-> { 
         _id,
         title,
@@ -36,8 +37,6 @@ const ALL_LISTINGS_QUERY = defineQuery(`*[
         location,
         city,
         state,
-        price,
-        currency
         }
       }`);
 
@@ -75,6 +74,7 @@ export async function getAllListings(): Promise<Property[] | null> {
     price: d.price,
     currency: d.currency,
     featured: d.featured,
+    status: d.status,
   }));
 
   return allListings;

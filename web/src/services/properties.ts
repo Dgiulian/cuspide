@@ -68,7 +68,9 @@ export type PropiedadType = {
   location?: Geopoint | null;
   featured?: boolean | null;
   type?: TypeOfProperty | null;
+  status?: "disponible" | "no_disponible" | "vendida" | "reservada" | null;
 };
+
 type BlockArrayContent = Array<{
   children?: Array<{
     marks?: Array<string>;
