@@ -81,7 +81,7 @@ export const listingType = defineType({
       title: 'Precio',
       type: 'number',
       validation: (rule) =>
-        rule.custom((value) => (!value || value > 0 ? true : 'El precio debe ser mayor a 0')),
+        rule.custom((value) => (!value || value > 1000 ? true : 'El precio debe ser mayor a 1000')),
     }),
   ],
 })
