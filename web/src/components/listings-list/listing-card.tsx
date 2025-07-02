@@ -25,7 +25,7 @@ function ListingCard({ listing, isGridView }: Props) {
           src={getImageUrl(listing)}
           alt={listing.title ?? ""}
           fill
-          className="rounded-t-lg"
+          className="rounded-t-lg object-cover"
         />
         <span className="absolute inline-block z-10 text-xl capitalize bg-red-600 top-[-12px] right-1 px-2 text-white">
           {listing.status && listing.status !== "disponible"
