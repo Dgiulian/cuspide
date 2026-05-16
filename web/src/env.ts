@@ -1,8 +1,6 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  STRAPI_URL: z.string().url(),
-  STRAPI_TOKEN: z.string(),
   MAILGUN_API_KEY: z.string(),
   SANITY_PROJECT_ID: z.string(),
   SANITY_DATASET: z.string(),

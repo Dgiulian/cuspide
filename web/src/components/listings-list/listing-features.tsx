@@ -1,7 +1,7 @@
-import { PropiedadType } from "@/services/properties";
+import { Property } from "@/domain/property";
 
 interface ListingFeaturesProps {
-  listing: Omit<PropiedadType, "description">;
+  listing: Property;
 }
 
 export function ListingFeatures({ listing }: ListingFeaturesProps) {

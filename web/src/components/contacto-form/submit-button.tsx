@@ -8,9 +8,9 @@ export function SubmitButton() {
     <Button
       type="submit"
       disabled={isLoading}
-      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+      className="w-full"
     >
-      {isLoading ? "Enviando " : "Enviar "} Mensaje
+      {isLoading ? "Enviando..." : "Enviar Mensaje"}
     </Button>
   );
 }

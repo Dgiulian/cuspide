@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export function ContactUsSection() {
   return (
@@ -9,18 +10,17 @@ export function ContactUsSection() {
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
               ¿Listo para Encontrar Tu Hogar Ideal?
             </h2>
-            <p className="mx-auto max-w-[700px] text-gray-400 md:text-xl">
-              Cont&aacute;ctanos hoy y deja que nuestros expertos agentes te
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+              Contáctanos hoy y deja que nuestros expertos agentes te
               ayuden a encontrar la propiedad perfecta.
             </p>
           </div>
           <div className="w-full max-w-sm space-y-2">
-            <Link
-              className="h-10 w-full px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
-              href="/contacto"
-            >
-              Contactanos
-            </Link>
+            <Button asChild size="lg" className="w-full">
+              <Link href="/contacto">
+                Contáctanos
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

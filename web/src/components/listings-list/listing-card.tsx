@@ -1,5 +1,5 @@
 import { formatPrice } from "@/lib/utils";
-import { PropiedadType } from "@/services/properties";
+import { Property } from "@/domain/property";
 import React from "react";
 import {
   Card,
@@ -15,7 +15,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 type Props = {
-  listing: Omit<PropiedadType, "description">;
+  listing: Property;
   isGridView: boolean;
 };
 
@@ -34,8 +34,8 @@ function ListingCard({ listing, isGridView }: Props) {
         }`}
       >
         <Image
-          src={getImageUrl(listing)}
-          alt={listing.title ?? ""}
+          src={listing.image_cover || "/placeholder-property.jpg"}
+          alt={listing.title ?? "Propiedad"}
           fill
           className="rounded-t-lg object-cover"
         />
@@ -75,10 +75,4 @@ function ListingCard({ listing, isGridView }: Props) {
 }
 
 export default ListingCard;
-
-function getImageUrl(p: Pick<Props, "listing">["listing"]) {
-  if (typeof p.image_cover === "string") {
-    return p.image_cover;
-  }
-  return p.image_cover?.url ?? "";
-}
+export { ListingCard };

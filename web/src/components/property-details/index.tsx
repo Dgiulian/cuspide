@@ -1,77 +1,145 @@
 import { Badge } from "@/components/ui/badge";
-import { Bath, Bed, Square } from "lucide-react";
-
+import { Bed, Bath, Square, Car, Calendar, Home } from "lucide-react";
 import { Property } from "@/domain/property";
 import { formatPrice } from "@/lib/utils";
 import BlockArrayRenderer from "../block-array-render";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "../ui/card";
 
 interface Props {
   property: Property;
+  hideTitle?: boolean;
 }
 
-const PropertyDetails = ({ property }: Props) => {
-  return (
-    <Card className="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 flex flex-col">
-      <CardHeader className=" flex-1">
-        <CardTitle>Descripción</CardTitle>
-        <CardDescription className="text-gray-400">
-          {property?.description && (
-            <BlockArrayRenderer blockArrayContent={property.description} />
-          )}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="justify-self-end">
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-2xl font-bold">
-            {property.price
-              ? formatPrice(
-                  property.price.toString(),
-                  property.currency ?? "ars"
-                )
-              : "Consultar precio"}
-          </span>
-          <Badge variant="secondary">En Venta</Badge>
-        </div>
-        <div className="grid grid-cols-3 gap-4 mb-4">
-          <div className="flex items-center">
-            <Bed className="mr-2" />
-            <span>
-              {`${property.rooms} ${property.rooms === 1 ? "Habitación" : "Habitaciones"}`}{" "}
-            </span>
-          </div>
-          <div className="flex items-center">
-            <Bath className="mr-2" />
-            <span>{`${property.bathrooms} ${property.bathrooms === 1 ? "Baño" : "Baños"}`}</span>
-          </div>
-          <div className="flex items-center">
-            <Square className="mr-2" />
-            <span>{property.lot_size} m²</span>
-          </div>
-        </div>
+const PropertyDetails = ({ property, hideTitle = false }: Props) => {
+  const typeLabels: Record<string, string> = {
+    casa: "Casa",
+    departamento: "Departamento",
+    terreno: "Terreno",
+    duplex: "Dúplex",
+    local: "Local Comercial",
+  };
 
-        {/* property.agente && (
-          <div className="border-t border-gray-700 pt-4">
-            <h3 className="font-semibold mb-2">Contactar al Agente</h3>
-            <p className="font-medium">{property.agente?.name}</p>
-            <div className="flex items-center mt-2">
-              <Phone className="mr-2" size={16} />
-              <span>{property.agente?.phone}</span>
-            </div>
-            <div className="flex items-center mt-1">
-              <Mail className="mr-2" size={16} />
-              <span>{property.agente?.email}</span>
-            </div>
+  return (
+    <div className="space-y-6">
+      {!hideTitle && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl">Detalles de la Propiedad</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {property.description && (
+              <div className="prose prose-stone dark:prose-invert max-w-none">
+                <BlockArrayRenderer blockArrayContent={property.description} />
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Features Grid */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-xl">Características</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            {property.type && (
+              <div className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+                <Home className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Tipo</div>
+                  <div className="font-medium">{typeLabels[property.type] || property.type}</div>
+                </div>
+              </div>
+            )}
+            
+            {property.rooms !== null && property.rooms !== undefined && (
+              <div className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+                <Bed className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Habitaciones</div>
+                  <div className="font-medium">{property.rooms} {property.rooms === 1 ? "habitación" : "habitaciones"}</div>
+                </div>
+              </div>
+            )}
+            
+            {property.bathrooms !== null && property.bathrooms !== undefined && (
+              <div className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+                <Bath className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Baños</div>
+                  <div className="font-medium">{property.bathrooms} {property.bathrooms === 1 ? "baño" : "baños"}</div>
+                </div>
+              </div>
+            )}
+            
+            {property.lot_size && (
+              <div className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+                <Square className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Superficie</div>
+                  <div className="font-medium">{property.lot_size} m²</div>
+                </div>
+              </div>
+            )}
+            
+            {property.garage !== null && property.garage !== undefined && (
+              <div className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+                <Car className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Garage</div>
+                  <div className="font-medium">{property.garage ? "Sí" : "No"}</div>
+                </div>
+              </div>
+            )}
+            
+            {property.publishedAt && (
+              <div className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg">
+                <Calendar className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Publicado</div>
+                  <div className="font-medium">
+                    {new Date(property.publishedAt).toLocaleDateString("es-AR", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        ) */}
-      </CardContent>
-    </Card>
+
+          {/* Price Summary */}
+          <div className="mt-6 pt-6 border-t">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm text-muted-foreground">Precio</div>
+                <div className="text-2xl font-bold text-primary">
+                  {property.price
+                    ? formatPrice(property.price.toString(), property.currency ?? "ars")
+                    : "Consultar precio"}
+                </div>
+              </div>
+              <Badge variant="secondary" className="text-sm">
+                En Venta
+              </Badge>
+            </div>
+            
+            {property.price && property.lot_size && (
+              <div className="mt-2 text-sm text-muted-foreground">
+                {formatPrice(Math.round(property.price / property.lot_size).toString(), property.currency ?? "ars")} / m²
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

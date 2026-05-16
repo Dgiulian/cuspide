@@ -20,20 +20,20 @@ export function ServiceCard({
   subtitle,
 }: ServiceCardProps) {
   return (
-    <Card className="dark:bg-gray-700 dark:border-gray-600">
+    <Card>
       <CardHeader>
         <div className="flex justify-center">
           <slot name="icon" />
         </div>
-        <CardTitle className="dark:text-gray-100">{title}</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="dark:text-gray-300">{description}</p>
+        <p className="text-muted-foreground">{description}</p>
       </CardContent>
       {subtitle && (
         <CardFooter>
-          <Check className="text-green-400 mr-2" />
-          <span className="text-sm text-gray-400">{subtitle}</span>
+          <Check className="text-primary mr-2" />
+          <span className="text-sm text-muted-foreground">{subtitle}</span>
         </CardFooter>
       )}
     </Card>
