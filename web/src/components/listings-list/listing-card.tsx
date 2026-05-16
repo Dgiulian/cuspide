@@ -10,6 +10,9 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 import { ListingFeatures } from "./listing-features";
+import { Badge } from "../ui/badge";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 type Props = {
   listing: Omit<PropiedadType, "description">;
@@ -17,29 +20,39 @@ type Props = {
 };
 
 function ListingCard({ listing, isGridView }: Props) {
-  console.log(listing.status);
   return (
-    <Card className={isGridView ? "" : "flex flex-row"}>
-      <div className={`relative ${isGridView ? "h-56" : "h-full w-1/3"}`}>
+    <Card
+      className={
+        isGridView
+          ? "flex flex-col"
+          : "flex flex-col md:flex-row md:items-center"
+      }
+    >
+      <div
+        className={`relative ${
+          isGridView ? "h-56" : "h-full md:w-1/3 md:h-56"
+        }`}
+      >
         <Image
           src={getImageUrl(listing)}
           alt={listing.title ?? ""}
           fill
           className="rounded-t-lg object-cover"
         />
-        <span className="absolute inline-block z-10 text-xl capitalize bg-red-600 top-[-12px] right-1 px-2 text-white">
-          {listing.status && listing.status !== "disponible"
-            ? listing.status.replace("_", " ")
-            : null}
-        </span>
+        {listing.status && listing.status !== "disponible" ? (
+          <Badge
+            variant="destructive"
+            className="absolute top-2 right-2 capitalize"
+          >
+            {listing.status.replace("_", " ")}
+          </Badge>
+        ) : null}
 
         {listing.featured ? (
-          <span className="absolute inline-block z-10 uppercase font-bold text-sm bg-blue-600 bottom-[-12px] right-1 px-2 text-white">
-            Destacada
-          </span>
+          <Badge className="absolute bottom-2 right-2">Destacada</Badge>
         ) : null}
       </div>
-      <div className={isGridView ? "" : "w-2/3"}>
+      <div className={isGridView ? "p-4" : "p-4 md:w-2/3"}>
         <CardHeader>
           <CardTitle>{listing.title}</CardTitle>
         </CardHeader>
@@ -52,12 +65,9 @@ function ListingCard({ listing, isGridView }: Props) {
           <ListingFeatures listing={listing} />
         </CardContent>
         <CardFooter>
-          <a
-            href={`/detalle/${listing.slug}`}
-            className="h-10 w-full px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary-foreground bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
-          >
-            Ver Detalles
-          </a>
+          <Button asChild className="w-full" variant="outline">
+            <Link href={`/detalle/${listing.slug}`}>Ver propiedad</Link>
+          </Button>
         </CardFooter>
       </div>
     </Card>

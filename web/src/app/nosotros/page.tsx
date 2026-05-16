@@ -5,7 +5,7 @@ export default function NosotrosPage() {
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold mb-6 text-center">Sobre Nosotros</h2>
 
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
+      <div className="grid md:grid-cols-4 gap-8 mb-12">
         <div>
           <h3 className="text-xl font-semibold mb-4 flex items-center">
             <Building2 className="mr-2" />
@@ -30,33 +30,32 @@ export default function NosotrosPage() {
             un servicio excepcional a cada cliente.
           </p>
         </div>
-      </div>
-
-      <div className="dark:bg-gray-800 p-6 rounded-lg mb-12">
-        <h3 className="text-xl font-semibold mb-4 flex items-center justify-center">
-          <Trophy className="mr-2" />
-          Nuestros Logros
-        </h3>
-        <ul className="list-disc list-inside dark:text-gray-300">
-          <li>100% de satisfacción del cliente</li>
-          <li>Presencia en 5 ciudades principales</li>
-        </ul>
-      </div>
-
-      <div className="text-center">
-        <h3 className="text-xl font-semibold mb-4">Nuestra Misión</h3>
-        <p className="dark:text-gray-300 mb-6">
-          En Cuspide Bienes Raices, nuestra misión es simplificar el proceso de
-          compra, venta y alquiler de propiedades, proporcionando un servicio
-          personalizado y de alta calidad a cada uno de nuestros clientes.
-        </p>
-        <a
-          href="/contacto"
-          className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          <PhoneCall className="mr-2" />
-          Contáctanos
-        </a>
+        <div className="dark:bg-gray-800 p-6 rounded-lg mb-12">
+          <h3 className="text-xl font-semibold mb-4 flex items-center justify-center">
+            <Trophy className="mr-2" />
+            Nuestros Logros
+          </h3>
+          <ul className="list-disc list-inside dark:text-gray-300">
+            <li>100% de satisfacción del cliente</li>
+            <li>Presencia en 5 ciudades principales</li>
+          </ul>
+        </div>
+        <div className="text-center">
+          <h3 className="text-xl font-semibold mb-4">Nuestra Misión</h3>
+          <p className="dark:text-gray-300 mb-6">
+            En Cuspide Bienes Raices, nuestra misión es simplificar el proceso
+            de compra, venta y alquiler de propiedades, proporcionando un
+            servicio personalizado y de alta calidad a cada uno de nuestros
+            clientes.
+          </p>
+          <a
+            href="/contacto"
+            className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            <PhoneCall className="mr-2" />
+            Contáctanos
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -20,7 +20,7 @@ export interface Property {
   status?: "disponible" | "no_disponible" | "vendida" | "reservada" | null;
 }
 
-type BlockArrayContent = Array<{
+export type BlockArrayContent = Array<{
   children?: Array<{
     marks?: Array<string>;
     text?: string;

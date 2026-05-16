@@ -1,13 +1,14 @@
 import ImageCarousel from "@/components/ImageCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MapPin } from "lucide-react";
+import { MapPin, FileDown } from "lucide-react";
 import { Mapa } from "@/components/mapa";
 import PropertyDetails from "@/components/property-details";
 import { notFound } from "next/navigation";
 import { getListingBySlug } from "@/services/get-listing-by-slug";
 import { Geopoint } from "@/domain/property";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 interface Props {
   params: Promise<{ listingSlug: string }>;
@@ -70,7 +71,18 @@ export default async function DetallePage({ params }: Props) {
   return (
     <>
       <div className="container mx-auto px-4 py-8 dark:bg-gray-900 dark:text-gray-100">
-        <h1 className="text-3xl font-bold mb-6">{propertyDetail.title}</h1>
+        <div className="mb-6 flex items-center">
+          <h1 className="text-3xl font-bold">{propertyDetail.title}</h1>
+          <Link
+            href={`/detalle/${propertyDetail.slug}/pdf`}
+            target="_blank"
+            referrerPolicy="no-referrer"
+            className="ml-auto flex justify-center flex-col items-center"
+          >
+            <FileDown size={20} />
+            <span className="text-xs">Descargar ficha</span>
+          </Link>
+        </div>
 
         {/* Carrusel de Imágenes */}
         <ImageCarousel images={propertyDetail.images ?? []} />
