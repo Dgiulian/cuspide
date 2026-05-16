@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ListingCardSkeletonProps {
@@ -7,19 +7,38 @@ interface ListingCardSkeletonProps {
 
 export function ListingCardSkeleton({ isGridView = true }: ListingCardSkeletonProps) {
   return (
-    <Card className={isGridView ? "flex flex-col" : "flex flex-col md:flex-row"}>
-      <div className={`relative ${isGridView ? "h-56" : "h-full md:w-1/3 md:h-56"}`}>
-        <Skeleton className="w-full h-full rounded-t-lg" />
+    <Card className={`overflow-hidden ${isGridView ? "flex flex-col" : "flex flex-col md:flex-row"}`}>
+      {/* Image skeleton */}
+      <div className={`relative bg-muted ${isGridView ? "h-56" : "h-56 md:w-80 md:h-64 flex-shrink-0"}`}>
+        <Skeleton className="w-full h-full" />
+        {/* Badge skeletons */}
+        <Skeleton className="absolute top-3 left-3 h-5 w-20" />
+        <Skeleton className="absolute bottom-3 right-3 h-6 w-24" />
       </div>
-      <div className={isGridView ? "p-4" : "p-4 md:w-2/3"}>
-        <CardHeader className="p-0 pb-4">
-          <Skeleton className="h-6 w-3/4" />
-        </CardHeader>
-        <CardContent className="p-0 pb-4">
-          <Skeleton className="h-8 w-1/2 mb-2" />
-          <Skeleton className="h-4 w-full" />
+      
+      {/* Content skeleton */}
+      <div className={`flex flex-col flex-1 ${isGridView ? "" : "md:p-6"}`}>
+        <CardContent className={`flex-1 ${isGridView ? "p-4" : "p-4 md:p-0 md:pb-0"}`}>
+          {/* Title skeleton */}
+          <Skeleton className="h-6 w-full mb-2" />
+          <Skeleton className="h-6 w-3/4 mb-3" />
+          
+          {/* Location skeleton */}
+          <Skeleton className="h-4 w-2/3 mb-4" />
+          
+          {/* Features skeleton */}
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+          </div>
+          
+          {/* Price per m² skeleton */}
+          <Skeleton className="h-3 w-1/3" />
         </CardContent>
-        <CardFooter className="p-0">
+        
+        {/* Footer skeleton */}
+        <CardFooter className={`${isGridView ? "p-4 pt-0" : "p-4 md:p-0"}`}>
           <Skeleton className="h-10 w-full" />
         </CardFooter>
       </div>
