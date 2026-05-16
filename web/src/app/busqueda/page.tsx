@@ -1,4 +1,5 @@
-import { searchListings, getUniqueLocations, SearchFilters } from "@/services/listing-search";
+import { searchListings, SearchFilters } from "@/services/listing-search";
+import { getUniqueLocations } from "@/services/listings";
 import ListingsList from "@/components/listings-list";
 import {
   Select,
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 interface SearchPageProps {
-  searchParams: {
+  searchParams: Promise<{
     type?: string;
     operation?: string;
     location?: string;
@@ -35,18 +36,20 @@ interface SearchPageProps {
     maxPrice?: string;
     bedrooms?: string;
     bathrooms?: string;
-  };
+  }>;
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const params = await searchParams;
+  
   const filters: SearchFilters = {
-    type: searchParams.type || null,
-    operation: (searchParams.operation as "venta" | "alquiler") || null,
-    location: searchParams.location || null,
-    minPrice: searchParams.minPrice ? parseInt(searchParams.minPrice) : null,
-    maxPrice: searchParams.maxPrice ? parseInt(searchParams.maxPrice) : null,
-    bedrooms: searchParams.bedrooms ? parseInt(searchParams.bedrooms) : null,
-    bathrooms: searchParams.bathrooms ? parseInt(searchParams.bathrooms) : null,
+    type: params.type || null,
+    operation: (params.operation as "venta" | "alquiler") || null,
+    location: params.location || null,
+    minPrice: params.minPrice ? parseInt(params.minPrice) : null,
+    maxPrice: params.maxPrice ? parseInt(params.maxPrice) : null,
+    bedrooms: params.bedrooms ? parseInt(params.bedrooms) : null,
+    bathrooms: params.bathrooms ? parseInt(params.bathrooms) : null,
   };
 
   const [listings, locations] = await Promise.all([
@@ -60,7 +63,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       <div className="bg-card border rounded-lg p-6 mb-8">
         <h1 className="text-2xl font-bold mb-6">Buscar Propiedades</h1>
         <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Select name="operation" defaultValue={searchParams.operation || ""}>
+          <Select name="operation" defaultValue={params.operation || ""}>
             <SelectTrigger>
               <SelectValue placeholder="Operación" />
             </SelectTrigger>
@@ -70,7 +73,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             </SelectContent>
           </Select>
 
-          <Select name="type" defaultValue={searchParams.type || ""}>
+          <Select name="type" defaultValue={params.type || ""}>
             <SelectTrigger>
               <SelectValue placeholder="Tipo de Propiedad" />
             </SelectTrigger>
@@ -83,7 +86,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             </SelectContent>
           </Select>
 
-          <Select name="location" defaultValue={searchParams.location || ""}>
+          <Select name="location" defaultValue={params.location || ""}>
             <SelectTrigger>
               <SelectValue placeholder="Ubicación" />
             </SelectTrigger>
@@ -101,13 +104,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               name="minPrice"
               type="number"
               placeholder="Precio mínimo"
-              defaultValue={searchParams.minPrice || ""}
+              defaultValue={params.minPrice || ""}
             />
             <Input
               name="maxPrice"
               type="number"
               placeholder="Precio máximo"
-              defaultValue={searchParams.maxPrice || ""}
+              defaultValue={params.maxPrice || ""}
             />
             <Button type="submit" size="icon">
               <Search className="h-4 w-4" />

@@ -7,13 +7,10 @@ import {
   MapPin, 
   FileDown, 
   Share2, 
-  Heart, 
   Bed, 
   Bath, 
   Square, 
   Car,
-  Calendar,
-  Home,
   Phone,
   Mail,
   Clock,
@@ -26,7 +23,7 @@ import PropertyDetails from "@/components/property-details";
 import { notFound } from "next/navigation";
 import { getListingBySlug } from "@/services/listings";
 import { getRelatedListings } from "@/services/listing-search";
-import { Geopoint } from "@/domain/property";
+import { Geopoint, Property } from "@/domain/property";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ListingCard from "@/components/listings-list/listing-card";
@@ -86,7 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // JSON-LD Structured Data
-function PropertyStructuredData({ property }: { property: any }) {
+function PropertyStructuredData({ property }: { property: Property }) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
@@ -127,7 +124,7 @@ function PropertyStructuredData({ property }: { property: any }) {
 }
 
 // Breadcrumb Component
-function Breadcrumb({ property }: { property: any }) {
+function Breadcrumb({ property }: { property: Property }) {
   return (
     <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
       <Link href="/" className="hover:text-primary transition-colors">Inicio</Link>
@@ -186,7 +183,7 @@ export default async function DetallePage({ params }: Props) {
               {/* Image Gallery */}
               <div className="mb-6">
                 <ImageCarousel 
-                  images={property.images?.length ? property.images : [property.image_cover].filter(Boolean)} 
+                  images={property.images?.length ? property.images : [property.image_cover].filter((img): img is string => Boolean(img))} 
                 />
               </div>
 

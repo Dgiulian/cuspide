@@ -24,7 +24,7 @@ export async function searchListings(filters: SearchFilters = {}): Promise<Prope
   const { type, location, minPrice, maxPrice } = filters;
   
   // Build dynamic query based on filters
-  let filterConditions = ["_type == 'listing'"];
+  const filterConditions = ["_type == 'listing'"];
   
   if (type) {
     filterConditions.push(`property->type == '${type}'`);

@@ -1,5 +1,5 @@
 import { Property } from "@/domain/property";
-import { getImageUrl, urlFor } from "@/infrastructure/sanity-helpers";
+import { getImageUrl } from "@/infrastructure/sanity-helpers";
 
 /**
  * Raw Sanity listing data structure

@@ -3,13 +3,13 @@ import PDFDocument from "pdfkit";
 import { getListingBySlug } from "@/services/get-listing-by-slug";
 import { notFound } from "next/navigation";
 import { BlockArrayContent } from "@/domain/property";
-import sizeOf from "image-size"; // Library to get image dimensions
+import sizeOf from "image-size";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { listingSlug: string } }
+  { params }: { params: Promise<{ listingSlug: string }> }
 ) {
-  const { listingSlug } = params;
+  const { listingSlug } = await params;
 
   try {
     if (!listingSlug) return notFound();
@@ -18,16 +18,9 @@ export async function GET(
     const property = await getListingBySlug(listingSlug);
     if (!property) return notFound();
 
-    if (!property) {
-      return NextResponse.json(
-        { error: "Property not found" },
-        { status: 404 }
-      );
-    }
-
     // Create a PDF document
     const doc = new PDFDocument({ margin: 50 });
-    doc.font("Times-Roman"); // Explicitly set a built-in font
+    doc.font("Times-Roman");
 
     // Create a ReadableStream to stream the PDF
     const stream = new ReadableStream<Uint8Array>({
@@ -57,27 +50,20 @@ export async function GET(
       for (const imageUrl of property.images) {
         const imageBuffer = await fetchImageAsBuffer(imageUrl);
         if (imageBuffer) {
-          // Get image dimensions
           const dimensions = sizeOf(imageBuffer);
           if (!dimensions.width || !dimensions.height) {
             console.error("Failed to get image dimensions:", imageUrl);
             continue;
           }
 
-          console.log({ dimensions });
-
-          // Calculate scaled height for a fixed width of 400
-          const imageWidth = 500; // Fixed width for images
+          const imageWidth = 500;
           const imageHeight =
             (dimensions.height / dimensions.width) * imageWidth;
 
-          // Check if there's enough space for the image
           if (doc.y + imageHeight > doc.page.height - 50) {
-            // 50 is the bottom margin
-            doc.addPage(); // Add a new page if there's not enough space
+            doc.addPage();
           }
 
-          // Add the image to the PDF
           doc
             .image(imageBuffer, { width: imageWidth, height: imageHeight })
             .moveDown(imageHeight / 10);
@@ -89,10 +75,8 @@ export async function GET(
       doc.text("No images available.");
     }
 
-    // Finalize PDF
     doc.end();
 
-    // Set response headers for a downloadable PDF
     return new NextResponse(stream, {
       headers: {
         "Content-Type": "application/pdf",
@@ -108,7 +92,6 @@ export async function GET(
   }
 }
 
-// Fetch image and return as Buffer
 async function fetchImageAsBuffer(url: string): Promise<Buffer | null> {
   try {
     const res = await fetch(url);
@@ -117,28 +100,24 @@ async function fetchImageAsBuffer(url: string): Promise<Buffer | null> {
     return Buffer.from(arrayBuffer);
   } catch (error) {
     console.error("Error fetching image:", error);
-    return null; // Return null if image fetch fails
+    return null;
   }
 }
 
-/**
- * Extracts plain text from BlockArrayContent while preserving formatting.
- */
 function extractTextFromBlocks(blocks: BlockArrayContent): string {
   if (!blocks) return "";
 
   return blocks
     .map((block) => {
-      if (!block.children) return ""; // Skip if no children
+      if (!block.children) return "";
 
       const textContent = block.children
-        .map((child) => child.text || "") // Extract text from children
-        .join(" "); // Join text fragments
+        .map((child) => child.text || "")
+        .join(" ");
 
-      // Add formatting based on style (optional)
       switch (block.style) {
         case "h1":
-          return `\n# ${textContent}\n`; // Simulate heading 1
+          return `\n# ${textContent}\n`;
         case "h2":
           return `\n## ${textContent}\n`;
         case "h3":
@@ -157,5 +136,5 @@ function extractTextFromBlocks(blocks: BlockArrayContent): string {
           return textContent;
       }
     })
-    .join("\n"); // Separate blocks with a newline
+    .join("\n");
 }
