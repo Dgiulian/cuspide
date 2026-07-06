@@ -12,6 +12,7 @@ export interface SanityListing {
   slug: { current: string } | null;
   featured: boolean | null;
   status: "disponible" | "no_disponible" | "vendida" | "reservada" | null;
+  operation?: "venta" | "alquiler" | null;
   publishedAt?: string;
   property?: {
     _id: string;
@@ -66,6 +67,7 @@ export function mapSanityListingToProperty(
     currency: data.currency,
     featured: data.featured,
     status: data.status,
+    operation: data.operation ?? null,
     publishedAt: data.publishedAt ? new Date(data.publishedAt) : undefined,
     // Property details
     type: property?.type,

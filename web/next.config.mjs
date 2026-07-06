@@ -21,6 +21,20 @@ const nextConfig = {
     ],
   },
   serverExternalPackages: ["pdfkit"],
+  async redirects() {
+    return [
+      {
+        source: "/busqueda",
+        destination: "/propiedades",
+        permanent: true,
+      },
+      {
+        source: "/busqueda/:path*",
+        destination: "/propiedades",
+        permanent: true,
+      },
+    ];
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

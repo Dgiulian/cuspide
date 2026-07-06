@@ -17,17 +17,16 @@ export default function Footer() {
   const quickLinks = [
     { href: "/", label: "Inicio" },
     { href: "/propiedades", label: "Propiedades" },
-    { href: "/busqueda", label: "Buscar" },
     { href: "/nosotros", label: "Nosotros" },
     { href: "/contacto", label: "Contacto" },
   ];
 
   const propertyTypes = [
-    { href: "/busqueda?type=casa", label: "Casas" },
-    { href: "/busqueda?type=departamento", label: "Departamentos" },
-    { href: "/busqueda?type=terreno", label: "Terrenos" },
-    { href: "/busqueda?type=duplex", label: "Dúplex" },
-    { href: "/busqueda?type=local", label: "Locales" },
+    { href: "/propiedades?type=casa", label: "Casas" },
+    { href: "/propiedades?type=departamento", label: "Departamentos" },
+    { href: "/propiedades?type=terreno", label: "Terrenos" },
+    { href: "/propiedades?type=duplex", label: "Dúplex" },
+    { href: "/propiedades?type=local", label: "Locales" },
   ];
 
   return (

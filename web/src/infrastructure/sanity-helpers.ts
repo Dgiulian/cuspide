@@ -42,6 +42,7 @@ export const LISTING_FRAGMENT = `{
   featured,
   status,
   publishedAt,
+  "operation": type,
   property-> {
     _id,
     title,

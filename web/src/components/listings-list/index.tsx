@@ -13,6 +13,8 @@ interface ListingsListProps {
   title?: string;
   showToggle?: boolean;
   showCount?: boolean;
+  /** Optional element (e.g. a filter bar) rendered between the header and the grid */
+  toolbar?: React.ReactNode;
   emptyState?: {
     title?: string;
     description?: string;
@@ -21,11 +23,12 @@ interface ListingsListProps {
   };
 }
 
-export default function ListingsList({ 
-  listings, 
+export default function ListingsList({
+  listings,
   title = "Listado de Propiedades",
   showToggle = true,
   showCount = true,
+  toolbar,
   emptyState = {
     title: "No se encontraron propiedades",
     description: "Intenta ajustar los filtros de búsqueda para ver más resultados.",
@@ -46,7 +49,9 @@ export default function ListingsList({
             </h1>
           </div>
         )}
-        
+
+        {toolbar && <div className="mb-6">{toolbar}</div>}
+
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
           <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mb-6">
             <SearchX className="h-10 w-10 text-muted-foreground" />
@@ -105,7 +110,10 @@ export default function ListingsList({
           </div>
         )}
       </div>
-      
+
+      {/* Toolbar (filters, etc.) */}
+      {toolbar && <div className="mb-6">{toolbar}</div>}
+
       {/* Grid */}
       <div
         className={`grid gap-6 ${

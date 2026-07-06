@@ -18,6 +18,8 @@ export interface Property {
   currency?: "ars" | "usd" | null;
   featured: boolean | null;
   status?: "disponible" | "no_disponible" | "vendida" | "reservada" | null;
+  /** Operation type of the listing: sale or rent */
+  operation?: "venta" | "alquiler" | null;
 }
 
 export type BlockArrayContent = Array<{

@@ -1,5 +1,12 @@
 import ListingsList from "@/components/listings-list";
-import { getAllListings } from "@/services/listings";
+import ListingsFilters from "@/components/listings-list/listings-filters";
+import {
+  searchListings,
+  VALID_OPERATIONS,
+  VALID_PROPERTY_TYPES,
+  type SearchFilters,
+} from "@/services/listing-search";
+import { getUniqueCities } from "@/services/listings";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -16,20 +23,73 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function PropiedadesPage() {
-  const listings = await getAllListings();
-  
-  if (listings.length === 0) {
-    return (
-      <div className="container mx-auto py-16 text-center">
-        <h1 className="text-3xl font-bold mb-4">No hay propiedades disponibles</h1>
-        <p className="text-muted-foreground">
-          En este momento no tenemos propiedades en nuestra base de datos.
-          Por favor, vuelve a intentar más tarde.
-        </p>
-      </div>
-    );
+const typeTitles: Record<string, string> = {
+  casa: "Casas",
+  departamento: "Departamentos",
+  duplex: "Dúplex",
+  terreno: "Terrenos",
+  local: "Locales",
+};
+
+function buildTitle(filters: SearchFilters): string {
+  if (!filters.type && !filters.operation && !filters.city) {
+    return "Todas las Propiedades";
   }
-  
-  return <ListingsList listings={listings} title="Todas las Propiedades" />;
+
+  const parts = [typeTitles[filters.type ?? ""] ?? "Propiedades"];
+  if (filters.operation) {
+    parts.push(filters.operation === "venta" ? "en Venta" : "en Alquiler");
+  }
+  if (filters.city) {
+    parts.push(`en ${filters.city}`);
+  }
+  return parts.join(" ");
+}
+
+interface PropiedadesPageProps {
+  searchParams: Promise<{
+    operation?: string;
+    type?: string;
+    location?: string;
+  }>;
+}
+
+export default async function PropiedadesPage({
+  searchParams,
+}: PropiedadesPageProps) {
+  const params = await searchParams;
+
+  const filters: SearchFilters = {
+    operation: (VALID_OPERATIONS as readonly string[]).includes(
+      params.operation ?? ""
+    )
+      ? (params.operation as "venta" | "alquiler")
+      : null,
+    type: (VALID_PROPERTY_TYPES as readonly string[]).includes(
+      params.type ?? ""
+    )
+      ? params.type
+      : null,
+    city: params.location || null,
+  };
+
+  const [listings, cities] = await Promise.all([
+    searchListings(filters),
+    getUniqueCities(),
+  ]);
+
+  return (
+    <ListingsList
+      listings={listings}
+      title={buildTitle(filters)}
+      toolbar={<ListingsFilters cities={cities} />}
+      emptyState={{
+        title: "No se encontraron propiedades",
+        description:
+          "No hay propiedades que coincidan con los filtros seleccionados. Intenta ajustarlos para ver más resultados.",
+        showResetButton: true,
+        resetHref: "/propiedades",
+      }}
+    />
+  );
 }

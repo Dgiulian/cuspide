@@ -26,26 +26,51 @@ export interface SearchFilters {
   featured?: boolean | null;
 }
 
+export const VALID_OPERATIONS = ["venta", "alquiler"] as const;
+export const VALID_PROPERTY_TYPES = [
+  "casa",
+  "departamento",
+  "duplex",
+  "terreno",
+  "local",
+] as const;
+
 /**
- * Builds a GROQ filter string from search filters
+ * Strips characters that would break out of a GROQ string literal
+ */
+function escapeGroqValue(value: string): string {
+  return value.replace(/['"\\]/g, "");
+}
+
+/**
+ * Builds a GROQ filter string from search filters.
+ * In Sanity, the listing's own `type` field holds the operation
+ * (venta/alquiler); the property kind lives in `property->type`.
  */
 function buildSearchFilter(filters: SearchFilters): string {
   const conditions: string[] = ["_type == 'listing'"];
 
-  if (filters.type) {
+  if (
+    filters.type &&
+    (VALID_PROPERTY_TYPES as readonly string[]).includes(filters.type)
+  ) {
     conditions.push(`property->type == '${filters.type}'`);
   }
 
-  if (filters.operation) {
-    conditions.push(`operation == '${filters.operation}'`);
+  if (
+    filters.operation &&
+    (VALID_OPERATIONS as readonly string[]).includes(filters.operation)
+  ) {
+    conditions.push(`type == '${filters.operation}'`);
   }
 
   if (filters.city) {
-    conditions.push(`property->city == '${filters.city}'`);
+    conditions.push(`property->city == '${escapeGroqValue(filters.city)}'`);
   } else if (filters.location) {
     // Search in both city and state with partial matching
+    const location = escapeGroqValue(filters.location);
     conditions.push(
-      `(property->city match '*${filters.location}*' || property->state match '*${filters.location}*')`
+      `(property->city match '*${location}*' || property->state match '*${location}*')`
     );
   }
 

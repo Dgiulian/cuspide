@@ -1,6 +1,5 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import heroBg from "@/images/hero-bg.jpg";
 import Image from "next/image";
 import { Button } from "../ui/button";
@@ -14,7 +13,11 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  cities?: string[];
+}
+
+export function HeroSection({ cities = [] }: HeroSectionProps) {
   const router = useRouter();
   const [operation, setOperation] = useState<string>("");
   const [propertyType, setPropertyType] = useState<string>("");
@@ -22,14 +25,14 @@ export function HeroSection() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const params = new URLSearchParams();
     if (operation) params.set("operation", operation);
     if (propertyType) params.set("type", propertyType);
     if (location) params.set("location", location);
-    
+
     const queryString = params.toString();
-    router.push(`/busqueda/venta${queryString ? `?${queryString}` : ""}`);
+    router.push(`/propiedades${queryString ? `?${queryString}` : ""}`);
   };
 
   return (
@@ -89,13 +92,20 @@ export function HeroSection() {
                   <SelectItem value="local">Local</SelectItem>
                 </SelectContent>
               </Select>
-              <Input
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="h-11 flex-1 rounded-xl border-transparent bg-background/95 text-foreground placeholder:text-muted-foreground"
-                placeholder="Ingresa una ubicación"
-                type="text"
-              />
+              {cities.length > 0 && (
+                <Select value={location} onValueChange={setLocation}>
+                  <SelectTrigger className="h-11 flex-1 rounded-xl border-transparent bg-background/95 text-foreground">
+                    <SelectValue placeholder="Ubicación" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cities.map((city) => (
+                      <SelectItem key={city} value={city}>
+                        {city}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
               <Button
                 type="submit"
                 className="h-11 rounded-xl bg-primary px-6 font-semibold text-primary-foreground hover:bg-primary/90"

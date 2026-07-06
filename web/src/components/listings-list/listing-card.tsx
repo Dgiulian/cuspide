@@ -115,6 +115,11 @@ export function ListingCard({
         {/* Top chips */}
         <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
+            {listing.operation && (
+              <span className="rounded-full border border-white/20 bg-stone-900/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white shadow-sm backdrop-blur-sm">
+                {listing.operation === "venta" ? "Venta" : "Alquiler"}
+              </span>
+            )}
             <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-stone-900 shadow-sm backdrop-blur-sm">
               {typeLabels[listing.type || ""] || listing.type || "Propiedad"}
             </span>

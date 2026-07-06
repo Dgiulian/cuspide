@@ -7,7 +7,7 @@ import { HeroSection } from "@/components/hero-section";
 import ListingCard from "@/components/listings-list/listing-card";
 import Reveal from "@/components/reveal";
 import { Button } from "@/components/ui/button";
-import { getFeaturedProperties } from "@/services/listings";
+import { getFeaturedProperties, getUniqueCities } from "@/services/listings";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Cuspide Bienes Raices | Propiedades en Neuquén y Rio Negro";
@@ -83,12 +83,15 @@ function StructuredData() {
 }
 
 export default async function HomePage() {
-  const featuredProperties = await getFeaturedProperties();
-  
+  const [featuredProperties, cities] = await Promise.all([
+    getFeaturedProperties(),
+    getUniqueCities(),
+  ]);
+
   return (
     <>
       <StructuredData />
-      <HeroSection />
+      <HeroSection cities={cities} />
       <section
         className="w-full py-16 md:py-24 lg:py-28"
         id="propiedades-destacadas"
