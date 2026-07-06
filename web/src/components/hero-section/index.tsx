@@ -40,7 +40,7 @@ export function HeroSection() {
           src={heroBg}
           alt=""
           fill
-          className="object-cover"
+          className="animate-hero-zoom object-cover"
           quality={90}
           priority
         />
@@ -50,20 +50,20 @@ export function HeroSection() {
       <div className="container relative px-4 text-white md:px-6">
         <div className="flex flex-col items-center space-y-8 text-center">
           <div className="space-y-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70 md:text-sm">
+            <p className="animate-fade-in-up text-xs font-semibold uppercase tracking-[0.3em] text-white/70 md:text-sm">
               Inmobiliaria en el Alto Valle
             </p>
-            <h1 className="font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="animate-fade-in-up font-display text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-7xl [animation-delay:120ms]">
               Encuentra tu{" "}
               <span className="italic text-primary">hogar ideal</span>
             </h1>
-            <p className="mx-auto max-w-[640px] text-base text-white/80 md:text-xl">
+            <p className="animate-fade-in-up mx-auto max-w-[640px] text-base text-white/80 md:text-xl [animation-delay:240ms]">
               Descubre la propiedad perfecta con Cuspide. Estamos aquí para
               ayudarte en cada paso del camino.
             </p>
           </div>
 
-          <div className="w-full max-w-2xl">
+          <div className="animate-fade-in-up w-full max-w-2xl [animation-delay:360ms]">
             <form
               onSubmit={handleSearch}
               className="flex w-full flex-col gap-2 rounded-2xl border border-white/15 bg-white/10 p-2.5 shadow-2xl backdrop-blur-md sm:flex-row"

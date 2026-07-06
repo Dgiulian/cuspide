@@ -5,6 +5,7 @@ import BenefitsSection from "@/components/benefits-section";
 import { ContactUsSection } from "@/components/contact-us-section";
 import { HeroSection } from "@/components/hero-section";
 import ListingCard from "@/components/listings-list/listing-card";
+import Reveal from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { getFeaturedProperties } from "@/services/listings";
 
@@ -93,7 +94,7 @@ export default async function HomePage() {
         id="propiedades-destacadas"
       >
         <div className="container px-4 md:px-6">
-          <div className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-end md:justify-between">
+          <Reveal className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
                 Selección exclusiva
@@ -112,10 +113,12 @@ export default async function HomePage() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-          </div>
+          </Reveal>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredProperties.slice(0, 3).map((p) => (
-              <ListingCard key={p.id} listing={p} isGridView={true} />
+            {featuredProperties.slice(0, 3).map((p, i) => (
+              <Reveal key={p.id} delay={i * 120} className="h-full">
+                <ListingCard listing={p} isGridView={true} />
+              </Reveal>
             ))}
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { ServiceCard } from "@/components/benefits-section/service-card";
+import Reveal from "@/components/reveal";
 import React from "react";
 
 const BenefitsSection = () => {
@@ -8,14 +9,14 @@ const BenefitsSection = () => {
       id="destacados"
     >
       <div className="container px-4 md:px-6">
-        <div className="mb-10 text-center md:mb-12">
+        <Reveal className="mb-10 text-center md:mb-12">
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             Nuestra promesa
           </p>
           <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
             Por qué elegirnos
           </h2>
-        </div>
+        </Reveal>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {
@@ -34,12 +35,13 @@ const BenefitsSection = () => {
                 "Hacemos que comprar y vender propiedades sea fácil y sin complicaciones.",
             },
           ].map((item, i) => (
-            <ServiceCard
-              key={i}
-              title={item.title}
-              description={item.description}
-              subtitle={item.subtitle}
-            />
+            <Reveal key={i} delay={i * 120} className="h-full">
+              <ServiceCard
+                title={item.title}
+                description={item.description}
+                subtitle={item.subtitle}
+              />
+            </Reveal>
           ))}
         </div>
       </div>

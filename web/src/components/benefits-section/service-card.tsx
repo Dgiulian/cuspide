@@ -20,7 +20,7 @@ export function ServiceCard({
   subtitle,
 }: ServiceCardProps) {
   return (
-    <Card>
+    <Card className="h-full transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg">
       <CardHeader>
         <div className="flex justify-center">
           <slot name="icon" />
