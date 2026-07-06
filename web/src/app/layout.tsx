@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Fraunces } from "next/font/google";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -15,6 +16,10 @@ const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
+});
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -41,7 +46,7 @@ export default function RootLayout({
         <title>Cuspide Bienes Raices</title>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} font-sans antialiased`}
       >
         <ThemeProvider>
           <div className="flex flex-col min-h-screen bg-background text-foreground">

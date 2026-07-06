@@ -8,9 +8,14 @@ const BenefitsSection = () => {
       id="destacados"
     >
       <div className="container px-4 md:px-6">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
-          Por qué elegirnos
-        </h2>
+        <div className="mb-10 text-center md:mb-12">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            Nuestra promesa
+          </p>
+          <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            Por qué elegirnos
+          </h2>
+        </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {[
             {

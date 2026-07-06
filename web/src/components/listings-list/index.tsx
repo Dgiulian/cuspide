@@ -41,7 +41,9 @@ export default function ListingsList({
       <div className="container mx-auto py-8">
         {showToggle && (
           <div className="mb-6">
-            <h1 className="text-3xl font-bold">{title}</h1>
+            <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+              {title}
+            </h1>
           </div>
         )}
         
@@ -73,7 +75,9 @@ export default function ListingsList({
       {/* Header */}
       <div className={`flex ${showToggle ? "justify-between" : "justify-start"} items-center mb-6`}>
         <div>
-          <h1 className="text-3xl font-bold">{title}</h1>
+          <h1 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            {title}
+          </h1>
           {showCount && (
             <p className="text-muted-foreground mt-1">
               {listings.length} {listings.length === 1 ? "propiedad encontrada" : "propiedades encontradas"}

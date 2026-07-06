@@ -1,8 +1,11 @@
 import { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import BenefitsSection from "@/components/benefits-section";
 import { ContactUsSection } from "@/components/contact-us-section";
 import { HeroSection } from "@/components/hero-section";
 import ListingCard from "@/components/listings-list/listing-card";
+import { Button } from "@/components/ui/button";
 import { getFeaturedProperties } from "@/services/listings";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -86,13 +89,30 @@ export default async function HomePage() {
       <StructuredData />
       <HeroSection />
       <section
-        className="w-full py-12 md:py-24 lg:py-32"
+        className="w-full py-16 md:py-24 lg:py-28"
         id="propiedades-destacadas"
       >
         <div className="container px-4 md:px-6">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-8">
-            Propiedades Destacadas
-          </h2>
+          <div className="mb-10 flex flex-col gap-6 md:mb-12 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+                Selección exclusiva
+              </p>
+              <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+                Propiedades destacadas
+              </h2>
+              <p className="mt-3 text-muted-foreground md:text-lg">
+                Las mejores oportunidades del Alto Valle, elegidas por nuestro
+                equipo.
+              </p>
+            </div>
+            <Button asChild variant="outline" className="w-fit rounded-full">
+              <Link href="/propiedades">
+                Ver todas las propiedades
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProperties.slice(0, 3).map((p) => (
               <ListingCard key={p.id} listing={p} isGridView={true} />
