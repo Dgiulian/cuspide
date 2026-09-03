@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import { 
-  Home, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock,
+import {
+  Home,
+  // MapPin,
+  // Phone,
+  // Mail,
+  // Clock,
   Facebook,
   Instagram,
-  ArrowRight
+  ArrowRight,
 } from "lucide-react";
 
 export default function Footer() {
@@ -34,7 +34,6 @@ export default function Footer() {
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
@@ -42,22 +41,23 @@ export default function Footer() {
               <span className="text-xl font-bold">Cuspide</span>
             </Link>
             <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
-              Tu agencia de bienes raíces de confianza en el Alto Valle de Rio Negro y Neuquén. 
-              Ayudamos a familias a encontrar su hogar ideal desde 2015.
+              Tu agencia de bienes raíces de confianza en el Alto Valle de Rio
+              Negro y Neuquén. Ayudamos a familias a encontrar su hogar ideal
+              desde 2015.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex gap-3">
-              <a 
-                href="https://www.facebook.com/CuspideBr" 
-                target="_blank" 
+              <a
+                href="https://www.facebook.com/CuspideBr"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-background flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a 
+              <a
                 href="https://www.instagram.com/cuspide.neuquen/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -75,7 +75,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link 
+                  <Link
                     href={link.href}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center group"
                   >
@@ -93,7 +93,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {propertyTypes.map((link) => (
                 <li key={link.href}>
-                  <Link 
+                  <Link
                     href={link.href}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center group"
                   >
@@ -106,7 +106,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          <div>
+          {/* <div>
             <h3 className="font-semibold text-lg mb-4">Contacto</h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
@@ -142,7 +142,7 @@ export default function Footer() {
                 </span>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -151,17 +151,18 @@ export default function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground text-center md:text-left">
-              &copy; {currentYear} Cuspide Bienes Raices. Todos los derechos reservados.
+              &copy; {currentYear} Cuspide Bienes Raices. Todos los derechos
+              reservados.
             </p>
             <div className="flex gap-6">
-              <Link 
-                href="#" 
+              <Link
+                href="#"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 Términos de Servicio
               </Link>
-              <Link 
-                href="#" 
+              <Link
+                href="#"
                 className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 Política de Privacidad
