@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import { ContactForm } from "@/components/contacto-form";
 import {
-  MapPin,
+  // MapPin,
   Phone,
   // Mail,
   // Clock,
   Facebook,
   Instagram,
   MessageCircle,
-  Building2,
+  // Building2,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -193,8 +193,8 @@ export default function ContactoPage() {
               </div>
             </div>
 
-            {/* Map & Office Info */}
             <div className="space-y-6">
+              {/* 
               <Card className="overflow-hidden">
                 <CardHeader className="bg-secondary/30">
                   <CardTitle className="flex items-center gap-2">
@@ -203,7 +203,6 @@ export default function ContactoPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                  {/* Embedded Map */}
                   <div className="aspect-video bg-muted relative">
                     <iframe
                       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3102.788489034574!2d-68.0591!3d-38.9515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDU3JzA1LjQiUyA2OMKwMDMnMzIuOCJX!5e0!3m2!1ses!2sar!4v1609459200000!5m2!1ses!2sar"
@@ -237,7 +236,7 @@ export default function ContactoPage() {
                     </Button>
                   </div>
                 </CardContent>
-              </Card>
+              </Card> */}
 
               {/* Why Choose Us */}
               <Card>
