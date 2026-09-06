@@ -122,6 +122,8 @@ function StructuredData() {
       "@type": "RealEstateAgent",
       name: "Cuspide Bienes Raices",
       url: SITE_URL,
+      telephone: CONTACT_PHONE_E164,
+      email: CONTACT_EMAIL,
       logo: OG_IMAGE,
       image: OG_IMAGE,
       address: {
@@ -137,6 +139,8 @@ function StructuredData() {
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "customer service",
+        telephone: CONTACT_PHONE_E164,
+        email: CONTACT_EMAIL,
         availableLanguage: ["es-AR"],
         url: PAGE_URL,
       },

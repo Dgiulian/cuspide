@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Fraunces } from "next/font/google";
 import Header from "@/components/header";
@@ -23,9 +23,28 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Cuspide Bienes Raices",
+  // Lets pages use relative canonical/OG URLs and gives Next a base for og:image
+  metadataBase: new URL("https://cuspidebr.com.ar"),
+  // No `template` here: every page already carries the brand in its own title.
+  title: "Cuspide Bienes Raices | Propiedades en Neuquén y Río Negro",
   description:
-    "Cuspide bienes raices. Propiedades, Terrenos, Casas, Departamentos en el alto valle de Rio Negro y Neuquén",
+    "Cuspide Bienes Raices. Propiedades, terrenos, casas y departamentos en el Alto Valle de Río Negro y Neuquén.",
+  applicationName: "Cuspide Bienes Raices",
+  openGraph: {
+    siteName: "Cuspide Bienes Raices",
+    locale: "es_AR",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -36,14 +55,11 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta name="viewport" content="width=device-width" />
         <link
-          href="https://unpkg.com/maplibre-gl@4.7.1>/dist/maplibre-gl.css"
+          href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
           rel="stylesheet"
         />
-        <title>Cuspide Bienes Raices</title>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} font-sans antialiased`}

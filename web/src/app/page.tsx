@@ -8,6 +8,7 @@ import ListingCard from "@/components/listings-list/listing-card";
 import Reveal from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { getFeaturedProperties, getUniqueCities } from "@/services/listings";
+import { CONTACT_EMAIL, CONTACT_PHONE_E164 } from "@/lib/contact-info";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Cuspide Bienes Raices | Propiedades en Neuquén y Rio Negro";
@@ -56,6 +57,8 @@ function StructuredData() {
     name: "Cuspide Bienes Raices",
     description: "Agencia inmobiliaria líder en el Alto Valle de Rio Negro y Neuquén",
     url: "https://cuspidebr.com.ar",
+    telephone: CONTACT_PHONE_E164,
+    email: CONTACT_EMAIL,
     logo: "https://res.cloudinary.com/dsm3kqzwd/image/upload/v1734053129/cuspide-logo_gl4pu3.jpg",
     image: "https://res.cloudinary.com/dsm3kqzwd/image/upload/v1734053129/cuspide-logo_gl4pu3.jpg",
     address: {
@@ -67,6 +70,13 @@ function StructuredData() {
     areaServed: {
       "@type": "Place",
       name: "Alto Valle de Rio Negro y Neuquén",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: CONTACT_PHONE_E164,
+      email: CONTACT_EMAIL,
+      availableLanguage: ["es-AR"],
     },
     sameAs: [
       "https://www.facebook.com/CuspideBr",

@@ -111,7 +111,8 @@ function PropertyStructuredData({ property }: { property: Property }) {
       "@type": "RealEstateAgent",
       name: "Cuspide Bienes Raices",
       url: "https://cuspidebr.com.ar",
-      telephone: CONTACT_PHONE_DISPLAY,
+      telephone: CONTACT_PHONE_E164,
+      email: CONTACT_EMAIL,
     },
     datePosted: property.publishedAt,
   };
