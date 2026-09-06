@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getAllListings } from "@/services/listings";
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY } from "@/lib/contact-info";
 
 export const metadata: Metadata = {
   title: "Sobre Nosotros | Cuspide Bienes Raices",
@@ -236,11 +237,11 @@ export default async function NosotrosPage() {
           <div className="mt-12 grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             <div className="flex items-center justify-center gap-3 text-muted-foreground">
               <Phone className="h-5 w-5 text-primary" />
-              <span>+54 299 555-0123</span>
+              <span>{CONTACT_PHONE_DISPLAY}</span>
             </div>
             <div className="flex items-center justify-center gap-3 text-muted-foreground">
               <Mail className="h-5 w-5 text-primary" />
-              <span>info@cuspidebr.com</span>
+              <span>{CONTACT_EMAIL}</span>
             </div>
             <div className="flex items-center justify-center gap-3 text-muted-foreground">
               <Clock className="h-5 w-5 text-primary" />

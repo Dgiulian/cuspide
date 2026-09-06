@@ -1,10 +1,8 @@
 import { Metadata } from "next";
 import { ContactForm } from "@/components/contacto-form";
 import {
-  // MapPin,
   Phone,
-  // Mail,
-  // Clock,
+  Mail,
   Facebook,
   Instagram,
   MessageCircle,
@@ -13,60 +11,76 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_E164, CONTACT_WHATSAPP } from "@/lib/contact-info";
+
+const SITE_URL = "https://cuspidebr.com.ar";
+const PAGE_URL = `${SITE_URL}/contacto`;
+const OG_IMAGE =
+  "https://res.cloudinary.com/dsm3kqzwd/image/upload/v1734053129/cuspide-logo_gl4pu3.jpg";
+
+const title = "Contacto | Inmobiliaria en Neuquén y Río Negro | Cuspide Bienes Raices";
+const description =
+  "Contactá a Cuspide Bienes Raices, inmobiliaria del Alto Valle de Río Negro y Neuquén. Consultá por casas, departamentos, terrenos y locales en venta o alquiler: te respondemos en menos de 24 horas hábiles.";
 
 export const metadata: Metadata = {
-  title: "Contacto | Cuspide Bienes Raices",
-  description:
-    "Contacta a Cuspide Bienes Raices. Estamos aquí para ayudarte a encontrar tu propiedad ideal en Neuquén y Rio Negro. Atención personalizada de lunes a sábado.",
+  title,
+  description,
   keywords: [
-    "contacto",
-    "bienes raices",
-    "inmobiliaria",
-    "Neuquén",
-    "Rio Negro",
-    "teléfono",
-    "email",
+    "contacto inmobiliaria Neuquén",
+    "inmobiliaria Río Negro",
+    "Cuspide Bienes Raices",
+    "asesor inmobiliario Alto Valle",
+    "consultar propiedades Neuquén",
+    "vender propiedad Neuquén",
   ],
+  authors: [{ name: "Cuspide Bienes Raices" }],
   openGraph: {
-    title: "Contacto | Cuspide Bienes Raices",
-    description:
-      "Contacta a Cuspide Bienes Raices. Estamos aquí para ayudarte a encontrar tu propiedad ideal.",
+    title,
+    description,
+    url: PAGE_URL,
+    siteName: "Cuspide Bienes Raices",
+    locale: "es_AR",
     type: "website",
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 917,
+        height: 530,
+        alt: "Cuspide Bienes Raices - Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [OG_IMAGE],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   alternates: {
-    canonical: "https://cuspidebr.com.ar/contacto",
+    canonical: PAGE_URL,
   },
 };
 
 const contactInfo = [
-  // {
-  //   icon: MapPin,
-  //   title: "Dirección",
-  //   content: "Sarmiento 456, Neuquén Capital",
-  //   subContent: "Neuquén, Argentina",
-  //   href: "https://maps.google.com/?q=Sarmiento+456+Neuquén",
-  // },
-  // {
-  //   icon: Phone,
-  //   title: "Teléfono",
-  //   content: "+54 299 555-0123",
-  //   subContent: "Lun-Vie: 9:00 - 18:00",
-  //   href: "tel:+542995550123",
-  // },
-  // {
-  //   icon: Mail,
-  //   title: "Email",
-  //   content: "info@cuspidebr.com",
-  //   subContent: "Respuesta en 24hs",
-  //   href: "mailto:info@cuspidebr.com",
-  // },
-  // {
-  //   icon: Clock,
-  //   title: "Horario",
-  //   content: "Lun-Vie: 9:00 - 18:00",
-  //   subContent: "Sáb: 9:00 - 13:00",
-  //   href: null,
-  // },
+  {
+    icon: Phone,
+    title: "Teléfono",
+    content: CONTACT_PHONE_DISPLAY,
+    subContent: "Lun-Vie: 9:00 - 18:00",
+    href: `tel:${CONTACT_PHONE_E164}`,
+  },
+  {
+    icon: Mail,
+    title: "Email",
+    content: CONTACT_EMAIL,
+    subContent: "Respuesta en 24hs",
+    href: `mailto:${CONTACT_EMAIL}`,
+  },
 ];
 
 const socialLinks = [
@@ -85,25 +99,93 @@ const socialLinks = [
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    href: "https://wa.me/542995550123",
+    href: `https://wa.me/${CONTACT_WHATSAPP}`,
     color: "hover:bg-green-600 hover:text-white",
   },
 ];
 
+// JSON-LD: ContactPage + the agency's contact points, plus breadcrumbs
+function StructuredData() {
+  const contactPage = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Contacto | Cuspide Bienes Raices",
+    description,
+    url: PAGE_URL,
+    inLanguage: "es-AR",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Cuspide Bienes Raices",
+      url: SITE_URL,
+    },
+    about: {
+      "@type": "RealEstateAgent",
+      name: "Cuspide Bienes Raices",
+      url: SITE_URL,
+      logo: OG_IMAGE,
+      image: OG_IMAGE,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Neuquén",
+        addressRegion: "Neuquén",
+        addressCountry: "AR",
+      },
+      areaServed: {
+        "@type": "Place",
+        name: "Alto Valle de Río Negro y Neuquén",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        availableLanguage: ["es-AR"],
+        url: PAGE_URL,
+      },
+      sameAs: socialLinks.map((social) => social.href),
+    },
+  };
+
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Contacto", item: PAGE_URL },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPage) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
+    </>
+  );
+}
+
 export default function ContactoPage() {
   return (
     <div className="min-h-screen">
+      <StructuredData />
+
       {/* Hero Section */}
       <section className="bg-primary/5 py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
               ¿Hablamos de tu{" "}
-              <span className="text-primary">Próxima Propiedad</span>?
+              <span className="text-primary">Próxima Propiedad</span> en Neuquén
+              o Río Negro?
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Estamos aquí para ayudarte en cada paso del proceso. Contáctanos y
-              un asesor experto te responderá a la brevedad.
+              En Cuspide Bienes Raices te acompañamos en cada paso de la compra,
+              venta o alquiler de casas, departamentos, terrenos y locales en el
+              Alto Valle. Contáctanos y un asesor inmobiliario te responderá a
+              la brevedad.
             </p>
           </div>
         </div>
@@ -112,7 +194,7 @@ export default function ContactoPage() {
       {/* Contact Info Cards */}
       <section className="py-12 -mt-8">
         <div className="container mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
             {contactInfo.map((item) => (
               <Card
                 key={item.title}
@@ -151,17 +233,19 @@ export default function ContactoPage() {
       </section>
 
       {/* Contact Form & Map Section */}
-      <section className="py-16">
+      <section className="py-16" aria-labelledby="enviar-mensaje">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Contact Form */}
             <div>
               <div className="mb-8">
-                <h2 className="text-3xl font-bold mb-4">Envíanos un Mensaje</h2>
+                <h2 id="enviar-mensaje" className="text-3xl font-bold mb-4">
+                  Envíanos un Mensaje
+                </h2>
                 <p className="text-muted-foreground">
                   Completa el formulario y nos pondremos en contacto contigo lo
-                  antes posible. Tu consulta será atendida por un asesor
-                  especializado.
+                  antes posible. Tu consulta sobre propiedades en Neuquén y Río
+                  Negro será atendida por un asesor especializado.
                 </p>
               </div>
 
@@ -182,7 +266,7 @@ export default function ContactoPage() {
                       key={social.label}
                       href={social.href}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer me"
                       className={`w-12 h-12 rounded-full bg-secondary flex items-center justify-center transition-all ${social.color}`}
                       aria-label={social.label}
                     >
@@ -294,7 +378,7 @@ export default function ContactoPage() {
             prefieras.
           </p>
           <Button asChild size="lg">
-            <a href="tel:+542995550123">
+            <a href={`tel:${CONTACT_PHONE_E164}`}>
               <Phone className="mr-2 h-5 w-5" />
               Llamar Ahora
             </a>

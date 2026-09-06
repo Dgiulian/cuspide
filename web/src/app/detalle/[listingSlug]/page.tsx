@@ -28,6 +28,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ListingCard from "@/components/listings-list/listing-card";
 import { formatPrice } from "@/lib/utils";
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_E164, CONTACT_WHATSAPP } from "@/lib/contact-info";
 
 interface Props {
   params: Promise<{ listingSlug: string }>;
@@ -110,7 +111,7 @@ function PropertyStructuredData({ property }: { property: Property }) {
       "@type": "RealEstateAgent",
       name: "Cuspide Bienes Raices",
       url: "https://cuspidebr.com.ar",
-      telephone: "+54 299 555-0123",
+      telephone: CONTACT_PHONE_DISPLAY,
     },
     datePosted: property.publishedAt,
   };
@@ -315,21 +316,21 @@ export default async function DetallePage({ params }: Props) {
                 </CardHeader>
                 <CardContent className="p-6 space-y-4">
                   <Button className="w-full" size="lg" asChild>
-                    <Link href={`https://wa.me/542995550123?text=Hola, estoy interesado en la propiedad: ${property.title}`} target="_blank">
+                    <Link href={`https://wa.me/${CONTACT_WHATSAPP}?text=Hola, estoy interesado en la propiedad: ${property.title}`} target="_blank">
                       <Phone className="mr-2 h-5 w-5" />
                       Contactar por WhatsApp
                     </Link>
                   </Button>
                   
                   <Button variant="outline" className="w-full" size="lg" asChild>
-                    <Link href="tel:+542995550123">
+                    <Link href={`tel:${CONTACT_PHONE_E164}`}>
                       <Phone className="mr-2 h-5 w-5" />
                       Llamar Ahora
                     </Link>
                   </Button>
 
                   <Button variant="secondary" className="w-full" asChild>
-                    <Link href="mailto:info@cuspidebr.com">
+                    <Link href={`mailto:${CONTACT_EMAIL}`}>
                       <Mail className="mr-2 h-4 w-4" />
                       Enviar Email
                     </Link>
@@ -340,11 +341,11 @@ export default async function DetallePage({ params }: Props) {
                   <div className="space-y-3 text-sm">
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <Phone className="h-4 w-4" />
-                      <span>+54 299 555-0123</span>
+                      <span>{CONTACT_PHONE_DISPLAY}</span>
                     </div>
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <Mail className="h-4 w-4" />
-                      <span>info@cuspidebr.com</span>
+                      <span>{CONTACT_EMAIL}</span>
                     </div>
                     <div className="flex items-center gap-3 text-muted-foreground">
                       <Clock className="h-4 w-4" />

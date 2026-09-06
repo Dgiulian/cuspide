@@ -2,14 +2,13 @@ import React from "react";
 import Link from "next/link";
 import {
   Home,
-  // MapPin,
-  // Phone,
-  // Mail,
-  // Clock,
+  Phone,
+  Mail,
   Facebook,
   Instagram,
   ArrowRight,
 } from "lucide-react";
+import { CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, CONTACT_PHONE_E164 } from "@/lib/contact-info";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -106,43 +105,29 @@ export default function Footer() {
           </div>
 
           {/* Contact Info */}
-          {/* <div>
+          <div>
             <h3 className="font-semibold text-lg mb-4">Contacto</h3>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">
-                  Sarmiento 456, Neuquén Capital<br />
-                  Neuquén, Argentina
-                </span>
-              </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <a 
-                  href="tel:+542995550123" 
+                <a
+                  href={`tel:${CONTACT_PHONE_E164}`}
                   className="text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
-                  +54 299 555-0123
+                  {CONTACT_PHONE_DISPLAY}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <a 
-                  href="mailto:info@cuspidebr.com"
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="text-muted-foreground hover:text-primary transition-colors text-sm"
                 >
-                  info@cuspidebr.com
+                  {CONTACT_EMAIL}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <Clock className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">
-                  Lun - Vie: 9:00 - 18:00<br />
-                  Sáb: 9:00 - 13:00
-                </span>
-              </li>
             </ul>
-          </div> */}
+          </div>
         </div>
       </div>
 
